@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MEDCONNECTPRO"
         tools:targetApi="31">
         <activity
+            android:name=".EmailVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorRegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegAccountOption"
             android:exported="false" />
         <activity
