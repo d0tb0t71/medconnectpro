@@ -1,19 +1,21 @@
 package com.example.medconnectpro;
 
-public class DoctorModel {
+public class UserModel {
 
     String  email, phone, fullname, username, department, city;
+    boolean isDoctor;
 
-    public DoctorModel() {
+    public UserModel() {
     }
 
-    public DoctorModel(String email, String phone, String fullname, String username, String department, String city) {
+    public UserModel(String email, String phone, String fullname, String username, String department, String city, boolean isDoctor) {
         this.email = email;
         this.phone = phone;
         this.fullname = fullname;
         this.username = username;
         this.department = department;
         this.city = city;
+        this.isDoctor = isDoctor;
     }
 
     public String getEmail() {
@@ -62,5 +64,13 @@ public class DoctorModel {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
     }
 }

@@ -17,6 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DoctorRegisterActivity extends AppCompatActivity {
 
     Button doc_reg_btn;
@@ -63,12 +66,9 @@ public class DoctorRegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
-
-
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            DoctorModel userModel = new DoctorModel(email_st,phone_st,fullname_st,username_st,department_st,city_st);
+                            UserModel userModel = new UserModel(email_st,phone_st,fullname_st,username_st,department_st,city_st, true);
 
                             db = FirebaseFirestore.getInstance();
 
@@ -77,7 +77,37 @@ public class DoctorRegisterActivity extends AppCompatActivity {
                                     .set(userModel);
                             user.sendEmailVerification();
 
+                            Map<String, Object> depMap = new HashMap();
+                            depMap.put("department", department_st);
+
+
+                            db.collection("department")
+                                    .document(department_st)
+                                    .set(depMap);
+
+                            Map<String, Object> cityMap = new HashMap();
+                            cityMap.put("city", city_st);
+
+                            db.collection("department")
+                                    .document(department_st)
+                                    .collection("city")
+                                    .document(city_st)
+                                    .set(cityMap);
+
+                            db.collection("department")
+                                    .document(department_st)
+                                    .collection("city")
+                                    .document(city_st)
+                                    .collection("doctor")
+                                    .document(email_st)
+                                    .set(userModel);
+
+
+                            user.sendEmailVerification();
+
                             Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "Registration Failed\n"+task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -94,7 +124,6 @@ public class DoctorRegisterActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(getApplicationContext(), "Please Enter Correct Information", Toast.LENGTH_SHORT).show();
-
             }
 
 

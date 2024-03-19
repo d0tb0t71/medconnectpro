@@ -22,10 +22,11 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         verify_refresh_btn = findViewById(R.id.verify_refresh_btn);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
 
         verify_refresh_btn.setOnClickListener(v-> {
+
+            firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
 
             if(user.isEmailVerified()){
                 startActivity(new Intent(getApplicationContext(),HomeScreen.class));
