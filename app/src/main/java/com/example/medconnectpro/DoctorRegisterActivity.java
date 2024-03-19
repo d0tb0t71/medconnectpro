@@ -40,6 +40,8 @@ public class DoctorRegisterActivity extends AppCompatActivity {
         pass = findViewById(R.id.doc_pass_ET);
         confirmPass = findViewById(R.id.doc_confirmPass_ET);
 
+        doc_reg_btn = findViewById(R.id.doc_reg_btn);
+
         mAuth = FirebaseAuth.getInstance();
 
         doc_reg_btn.setOnClickListener(v->{
@@ -54,14 +56,14 @@ public class DoctorRegisterActivity extends AppCompatActivity {
             String c_pass_st = confirmPass.getText().toString();
 
 
-            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass.equals(c_pass_st) && phone_st.length() > 10){
+            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 10){
 
                 mAuth.createUserWithEmailAndPassword(email_st,pass_st).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
 
+                            startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
 
 
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -73,7 +75,9 @@ public class DoctorRegisterActivity extends AppCompatActivity {
                             db.collection("users")
                                     .document(user.getUid())
                                     .set(userModel);
+                            user.sendEmailVerification();
 
+                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "Registration Failed\n"+task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();

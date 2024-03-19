@@ -42,13 +42,13 @@
                 />
 
             <Button
+                android:id="@+id/verify_refresh_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Refresh"
-                android:backgroundTint="@color/darkRed"
-                android:textSize="18sp"
                 android:layout_margin="20dp"
-                />
+                android:backgroundTint="@color/darkRed"
+                android:text="Refresh"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

@@ -43,10 +43,10 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/user"
-                android:foregroundTint="@color/black"
-                app:tint="@color/black"
+                android:src="@drawable/doc_img"
                 android:layout_marginBottom="20dp"
+                android:background="#000000"
+                android:padding="1dp"
                 />
 
             <TextView
@@ -86,6 +86,7 @@
                     >
 
                     <EditText
+                        android:id="@+id/doc_login_email"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
                         android:hint="Email"
@@ -97,6 +98,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/doc_login_pass"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
                         android:hint="Password"
@@ -116,6 +118,7 @@
                         android:textColor="@color/linkColor" />
 
                     <Button
+                        android:id="@+id/login_now_btn"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:text="Login"
