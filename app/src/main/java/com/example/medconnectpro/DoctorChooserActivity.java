@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,47 +16,47 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class CityChooserActivity extends AppCompatActivity implements OnItemClick {
+public class DoctorChooserActivity extends AppCompatActivity implements OnItemClick {
 
-    RecyclerView cityRecyclerView;
+
+    RecyclerView doctorRecyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-    CityAdapter cityAdapter;
+    DoctorAdapter doctorAdapter;
 
-    ArrayList<CityModel> list;
+    ArrayList<UserModel> list;
     FirebaseFirestore db;
-
-    String departmentName = "";
-
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_city_chooser);
+        setContentView(R.layout.activity_doctor_chooser);
 
-        departmentName = getIntent().getStringExtra("department");
+        String departmentName = getIntent().getStringExtra("department");
+        String cityName = getIntent().getStringExtra("city");
 
-        cityRecyclerView = findViewById(R.id.cityRecyclerView);
+        doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        cityRecyclerView.setLayoutManager(layoutManager);
+        doctorRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
 
-        cityAdapter = new CityAdapter(getApplicationContext(),list , this);
-        cityRecyclerView.setAdapter(cityAdapter);
+        doctorAdapter = new DoctorAdapter(getApplicationContext(),list);
+        doctorRecyclerView.setAdapter(doctorAdapter);
 
         db = FirebaseFirestore.getInstance();
 
 
-        getData(departmentName);
+        getData(departmentName, cityName);
+        
+        
     }
 
-    private void getData(String departmentName) {
+    private void getData(String departmentName, String cityName) {
 
-        db.collection("department").document(departmentName).collection("city")
+        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -71,13 +70,13 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
 
                             if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                CityModel cityModel = dc.getDocument().toObject(CityModel.class);
+                                UserModel userModel = dc.getDocument().toObject(UserModel.class);
 
-                                list.add(cityModel);
+                                list.add(userModel);
 
                             }
 
-                            cityAdapter.notifyDataSetChanged();
+                            doctorAdapter.notifyDataSetChanged();
 
                         }
 
@@ -87,12 +86,10 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
     }
 
     @Override
-    public void onClick(String cityName) {
+    public void onClick(String value) {
 
-        Intent intent = new Intent(getApplicationContext(),DoctorChooserActivity.class);
-        intent.putExtra("department", departmentName);
-        intent.putExtra("city", cityName);
-        startActivity(intent);
+
+
 
     }
 }

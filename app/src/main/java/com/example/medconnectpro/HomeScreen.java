@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -16,7 +17,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity implements OnItemClick{
 
     RecyclerView departmentRecyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -40,7 +41,7 @@ public class HomeScreen extends AppCompatActivity {
 
         list = new ArrayList<>();
 
-        departmentAdapter = new DepartmentAdapter(getApplicationContext(),list);
+        departmentAdapter = new DepartmentAdapter(getApplicationContext(),list, this);
         departmentRecyclerView.setAdapter(departmentAdapter);
 
         db = FirebaseFirestore.getInstance();
@@ -79,6 +80,15 @@ public class HomeScreen extends AppCompatActivity {
 
                     }
                 });
+
+    }
+
+    @Override
+    public void onClick(String depName) {
+
+        Intent intent = new Intent(getApplicationContext(),CityChooserActivity.class);
+        intent.putExtra("department", depName);
+        startActivity(intent);
 
     }
 }

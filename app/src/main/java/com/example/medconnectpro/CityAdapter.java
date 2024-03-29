@@ -14,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> {
+public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder>  {
     Context context;
     ArrayList<CityModel> list;
 
-    public CityAdapter(Context context, ArrayList<CityModel> list) {
+    private OnItemClick mCallback;
+
+    public CityAdapter(Context context, ArrayList<CityModel> list,  OnItemClick listener) {
         this.context = context;
         this.list = list;
+        this.mCallback = listener;
     }
 
     @NonNull
@@ -33,23 +36,21 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        CityModel CityModel = list.get(position);
+        CityModel cityModel = list.get(position);
 
-        holder.title.setText(CityModel.getName());
-        holder.count.setText(""+CityModel.getCount());
+        holder.title.setText(cityModel.getName());
+        holder.count.setText(""+cityModel.getCount());
 
 
 
-//        holder.show_details_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-////                Intent intent = new Intent(context,ParcelDetails.class);
-////                intent.putExtra("pID", CityModel.getpID());
-////                context.startActivity(intent);
-//
-//            }
-//        });
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mCallback.onClick(cityModel.getName());
+
+            }
+        });
 
     }
 

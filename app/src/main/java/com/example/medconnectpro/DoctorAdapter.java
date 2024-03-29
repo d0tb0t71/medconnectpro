@@ -14,16 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.MyViewHolder> {
+public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.MyViewHolder> {
     Context context;
-    ArrayList<DepartmentModel> list;
-    private OnItemClick mCallback;
+    ArrayList<UserModel> list;
 
-
-    public DepartmentAdapter(Context context, ArrayList<DepartmentModel> list, OnItemClick listener) {
+    public DoctorAdapter(Context context, ArrayList<UserModel> list) {
         this.context = context;
         this.list = list;
-        this.mCallback = listener;
     }
 
     @NonNull
@@ -36,21 +33,23 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        DepartmentModel departmentModel = list.get(position);
+        UserModel UserModel = list.get(position);
 
-        holder.title.setText(departmentModel.getName());
-        holder.count.setText(""+departmentModel.getCount());
-
+        holder.title.setText(UserModel.getFullname());
 
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                mCallback.onClick(departmentModel.getName());
-
-            }
-        });
+//        holder.title.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(context,CityChooserActivity.class);
+//                intent.putExtra("department", UserModel.getName());
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
+//
+//            }
+//        });
 
     }
 
@@ -59,7 +58,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
         return list.size();
     }
 
-    public void filteredList(ArrayList<DepartmentModel> filterList) {
+    public void filteredList(ArrayList<UserModel> filterList) {
         list = filterList;
         notifyDataSetChanged();
     }
