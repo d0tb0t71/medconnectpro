@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.MyViewHolder> {
+public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> {
     Context context;
-    ArrayList<DepartmentModel> list;
+    ArrayList<CityModel> list;
 
-    public DepartmentAdapter(Context context, ArrayList<DepartmentModel> list) {
+    public CityAdapter(Context context, ArrayList<CityModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -33,24 +33,23 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        DepartmentModel departmentModel = list.get(position);
+        CityModel CityModel = list.get(position);
 
-        holder.title.setText(departmentModel.getName());
-        holder.count.setText(""+departmentModel.getCount());
+        holder.title.setText(CityModel.getName());
+        holder.count.setText(""+CityModel.getCount());
 
 
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(context,CityChooserActivity.class);
-                intent.putExtra("department", departmentModel.getName());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-
-            }
-        });
+//        holder.show_details_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                Intent intent = new Intent(context,ParcelDetails.class);
+////                intent.putExtra("pID", CityModel.getpID());
+////                context.startActivity(intent);
+//
+//            }
+//        });
 
     }
 
@@ -59,7 +58,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
         return list.size();
     }
 
-    public void filteredList(ArrayList<DepartmentModel> filterList) {
+    public void filteredList(ArrayList<CityModel> filterList) {
         list = filterList;
         notifyDataSetChanged();
     }

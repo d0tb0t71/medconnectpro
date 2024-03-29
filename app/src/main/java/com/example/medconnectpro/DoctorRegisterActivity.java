@@ -78,7 +78,8 @@ public class DoctorRegisterActivity extends AppCompatActivity {
                             user.sendEmailVerification();
 
                             Map<String, Object> depMap = new HashMap();
-                            depMap.put("department", department_st);
+                            depMap.put("name", department_st);
+                            depMap.put("count", 0);
 
 
                             db.collection("department")
@@ -86,7 +87,8 @@ public class DoctorRegisterActivity extends AppCompatActivity {
                                     .set(depMap);
 
                             Map<String, Object> cityMap = new HashMap();
-                            cityMap.put("city", city_st);
+                            cityMap.put("name", city_st);
+                            cityMap.put("count", 0);
 
                             db.collection("department")
                                     .document(department_st)
