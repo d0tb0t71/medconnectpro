@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -26,13 +27,16 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
     ArrayList<UserModel> list;
     FirebaseFirestore db;
+
+    String departmentName = "";
+    String cityName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_chooser);
 
-        String departmentName = getIntent().getStringExtra("department");
-        String cityName = getIntent().getStringExtra("city");
+         departmentName = getIntent().getStringExtra("department");
+         cityName = getIntent().getStringExtra("city");
 
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
 
@@ -43,7 +47,7 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
         list = new ArrayList<>();
 
-        doctorAdapter = new DoctorAdapter(getApplicationContext(),list);
+        doctorAdapter = new DoctorAdapter(getApplicationContext(),list,this);
         doctorRecyclerView.setAdapter(doctorAdapter);
 
         db = FirebaseFirestore.getInstance();
@@ -88,7 +92,11 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
     @Override
     public void onClick(String value) {
 
-
+        Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
+        intent.putExtra("department", departmentName);
+        intent.putExtra("city", cityName);
+        intent.putExtra("doctorMail", value);
+        startActivity(intent);
 
 
     }

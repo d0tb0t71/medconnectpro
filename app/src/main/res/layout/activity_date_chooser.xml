@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/offWhite"
-    tools:context=".CityChooserActivity">
+    tools:context=".DateChooserActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/topViewDRA"
@@ -56,13 +56,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SELECT CITY"
-                android:textSize="35sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:layout_marginBottom="10dp"
+                android:text="DOCTOR"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold"
 
                 />
 
@@ -83,11 +83,25 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cityRecyclerView"
+        android:id="@+id/doctorRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/topViewDRA"
+        android:layout_above="@id/bookAppointmentBtn"
         android:padding="20dp"
         />
 
+    <Button
+        android:id="@+id/bookAppointmentBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Book Appointment Now"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:textSize="20dp"
+        android:backgroundTint="@color/darkRed"
+        />
 
-</LinearLayout>
+
+</RelativeLayout>
