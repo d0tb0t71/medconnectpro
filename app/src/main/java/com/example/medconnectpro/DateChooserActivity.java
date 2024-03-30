@@ -21,18 +21,18 @@ public class DateChooserActivity extends AppCompatActivity {
 
         bookAppointmentNow = findViewById(R.id.bookAppointmentBtn);
 
-        departmentName = getIntent().getStringExtra("department");
-        cityName = getIntent().getStringExtra("city");
-        doctorMail = getIntent().getStringExtra("doctorMail");
+        departmentName = getIntent().getStringExtra("docDepartment");
+        cityName = getIntent().getStringExtra("docCity");
+        doctorMail = getIntent().getStringExtra("docEmail");
 
 
 
         bookAppointmentNow.setOnClickListener( v-> {
 
             Intent intent = new Intent(getApplicationContext(),BookAppointmentActivity.class);
-            intent.putExtra("department", departmentName);
-            intent.putExtra("city", cityName);
-            intent.putExtra("doctorMail", doctorMail);
+            intent.putExtra("docDepartment", departmentName);
+            intent.putExtra("docCity", cityName);
+            intent.putExtra("docEmail", doctorMail);
             startActivity(intent);
 
         });

@@ -123,6 +123,7 @@
                 />
 
             <EditText
+                android:id="@+id/patientNameET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Patient Name"
@@ -135,6 +136,7 @@
 
 
             <EditText
+                android:id="@+id/mobileNumberET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Mobile Number"
@@ -145,54 +147,60 @@
                 android:inputType="textPersonName"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/selectDateET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
-                android:hint="Select Date"
+                android:text="Select Date"
                 android:background="@drawable/edittext_bg"
                 android:backgroundTint="@color/white"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="30dp"
                 android:inputType="textPersonName"
+                android:textSize="18dp"
+                android:gravity="center_vertical"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/selectTimeET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
-                android:hint="Select Time"
+                android:text="Select Time"
                 android:background="@drawable/edittext_bg"
                 android:backgroundTint="@color/white"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="30dp"
                 android:inputType="textPersonName"
+                android:textSize="18dp"
+                android:gravity="center_vertical"
                 />
 
-            <EditText
+            <Spinner
+                android:id="@+id/bloodGroupSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/edittext_bg"
+                android:backgroundTint="@color/white"
                 android:hint="Blood Group"
-                android:background="@drawable/edittext_bg"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPersonName"
-                />
+                android:inputType="text"
+                android:paddingLeft="20dp" />
 
-            <EditText
+            <Spinner
+                android:id="@+id/citySelectSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
-                android:hint="Select City"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/edittext_bg"
                 android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPersonName"
-                />
+                android:hint="Select City"
+                android:inputType="text"
+                android:paddingLeft="20dp" />
+
+
 
             <Button
-                android:id="@+id/bookAppointmentBtn"
+                android:id="@+id/createAppointmentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Create Appointment"

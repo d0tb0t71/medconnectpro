@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">MEDCONNECTPRO</string>
+
+    <string-array name="blood_group_list">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+
+    <string-array name="city_list">
+        <item>London</item>
+        <item>Birmingham</item>
+        <item>Manchester</item>
+        <item>Liverpool</item>
+        <item>Bristol</item>
+        <item>Leeds</item>
+        <item>Newcastle upon Tyne</item>
+        <item>Sheffield</item>
+        <item>Nottingham</item>
+        <item>Leicester</item>
+        <item>Coventry</item>
+        <item>Bradford</item>
+        <item>Stoke-on-Trent</item>
+        <item>Wolverhampton</item>
+        <item>Derby</item>
+        <item>Southampton</item>
+        <item>Portsmouth</item>
+        <item>Plymouth</item>
+        <item>Reading</item>
+        <item>Luton</item>
+    </string-array>
+
+
 </resources>

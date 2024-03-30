@@ -35,7 +35,7 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_chooser);
 
-        departmentName = getIntent().getStringExtra("department");
+        departmentName = getIntent().getStringExtra("docDepartment");
 
         cityRecyclerView = findViewById(R.id.cityRecyclerView);
 
@@ -90,8 +90,8 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
     public void onClick(String cityName) {
 
         Intent intent = new Intent(getApplicationContext(),DoctorChooserActivity.class);
-        intent.putExtra("department", departmentName);
-        intent.putExtra("city", cityName);
+        intent.putExtra("docDepartment", departmentName);
+        intent.putExtra("docCity", cityName);
         startActivity(intent);
 
     }

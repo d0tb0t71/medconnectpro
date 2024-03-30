@@ -35,8 +35,8 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_chooser);
 
-         departmentName = getIntent().getStringExtra("department");
-         cityName = getIntent().getStringExtra("city");
+         departmentName = getIntent().getStringExtra("docDepartment");
+         cityName = getIntent().getStringExtra("docCity");
 
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
 
@@ -93,9 +93,9 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
     public void onClick(String value) {
 
         Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
-        intent.putExtra("department", departmentName);
-        intent.putExtra("city", cityName);
-        intent.putExtra("doctorMail", value);
+        intent.putExtra("docDepartment", departmentName);
+        intent.putExtra("docCity", cityName);
+        intent.putExtra("docEmail", value);
         startActivity(intent);
 
 

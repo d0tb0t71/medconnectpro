@@ -87,7 +87,7 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
     public void onClick(String depName) {
 
         Intent intent = new Intent(getApplicationContext(),CityChooserActivity.class);
-        intent.putExtra("department", depName);
+        intent.putExtra("docDepartment", depName);
         startActivity(intent);
 
     }
