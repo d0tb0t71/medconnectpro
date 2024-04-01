@@ -44,6 +44,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     String departmentName = "";
     String doctorCity = "";
     String doctorEmail = "";
+    String timeStamp = "";
 
     FirebaseFirestore db;
     FirebaseUser user;
@@ -156,6 +157,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
                         .document(timestamp.toString())
                         .set(appointmentModel);
 
+                finish();
+
 
             }
 
@@ -179,7 +182,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
                     selectTimeET.setText(hour + " : " + min);
 
-                    selectedTime = hour + " : " + min;
+                    selectedTime = hour + "_" + min;
                 } else{
 
                     Toast.makeText(BookAppointmentActivity.this, "Please select Time between 2:00 to 6:00", Toast.LENGTH_LONG).show();
@@ -215,8 +218,13 @@ public class BookAppointmentActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        selectDateET.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        selectedDate = (dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                        String dDay = String.format("%02d", dayOfMonth);
+                        String dMonth = String.format("%02d", monthOfYear + 1);
+
+
+                        selectDateET.setText(dDay + "/" + dMonth  + "/" + year);
+                        selectedDate = (dDay + "_" + dMonth + "_" + year);
 
                     }
                 },

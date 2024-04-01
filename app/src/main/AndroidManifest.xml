@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MEDCONNECTPRO"
         tools:targetApi="31">
         <activity
+            android:name=".AppointmentListActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookAppointmentActivity"
             android:exported="false" />
         <activity

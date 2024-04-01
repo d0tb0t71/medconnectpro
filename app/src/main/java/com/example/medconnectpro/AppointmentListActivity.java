@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,67 +16,53 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-public class DateChooserActivity extends AppCompatActivity implements OnItemClick {
+public class AppointmentListActivity extends AppCompatActivity implements OnItemClick{
 
-
-    RecyclerView datesRecyclerView;
+    RecyclerView appointmentRecyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-    DateAdapter dateAdapter;
+    AppointmentAdapter appointmentAdapter;
 
-    ArrayList<DateModel> list;
+    ArrayList<AppointmentModel> list;
     FirebaseFirestore db;
     Button bookAppointmentNow;
 
     String departmentName = "";
     String cityName = "";
     String doctorMail = "";
+    String docDate = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_chooser);
+        setContentView(R.layout.activity_appointment_list);
 
-        bookAppointmentNow = findViewById(R.id.bookAppointmentBtn);
-        datesRecyclerView = findViewById(R.id.datesRecyclerView);
+        appointmentRecyclerView = findViewById(R.id.appointmentRecyclerView);
 
         departmentName = getIntent().getStringExtra("docDepartment");
         cityName = getIntent().getStringExtra("docCity");
         doctorMail = getIntent().getStringExtra("docEmail");
+        docDate = getIntent().getStringExtra("docDate");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        datesRecyclerView.setLayoutManager(layoutManager);
+        appointmentRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
 
-        dateAdapter = new DateAdapter(getApplicationContext(),list,this);
-        datesRecyclerView.setAdapter(dateAdapter);
+        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this);
+        appointmentRecyclerView.setAdapter(appointmentAdapter);
 
         db = FirebaseFirestore.getInstance();
 
-
-
-        bookAppointmentNow.setOnClickListener( v-> {
-
-            Intent intent = new Intent(getApplicationContext(),BookAppointmentActivity.class);
-            intent.putExtra("docDepartment", departmentName);
-            intent.putExtra("docCity", cityName);
-            intent.putExtra("docEmail", doctorMail);
-            startActivity(intent);
-
-        });
-
-        getData(departmentName, cityName,doctorMail);
+        getData(departmentName, cityName, doctorMail, docDate);
 
     }
 
-    private void getData(String departmentName, String cityName, String docMail) {
+    private void getData(String departmentName, String cityName, String docMail, String docDate) {
 
-        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(docMail).collection("dates")
+        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(docMail).collection("dates").document(docDate).collection("appointments")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -92,9 +76,9 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
                             if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                DateModel dateModel = dc.getDocument().toObject(DateModel.class);
+                                AppointmentModel appointmentModel = dc.getDocument().toObject(AppointmentModel.class);
 
-                                list.add(dateModel);
+                                list.add(appointmentModel);
 
                             }
 
@@ -106,7 +90,7 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 //                                }
 //                            });
 
-                            dateAdapter.notifyDataSetChanged();
+                            appointmentAdapter.notifyDataSetChanged();
 
                         }
 
@@ -117,13 +101,6 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
     @Override
     public void onClick(String value) {
-
-        Intent intent = new Intent(getApplicationContext(),AppointmentListActivity.class);
-        intent.putExtra("docDepartment", departmentName);
-        intent.putExtra("docCity", cityName);
-        intent.putExtra("docEmail", doctorMail);
-        intent.putExtra("docDate", value);
-        startActivity(intent);
 
     }
 }
