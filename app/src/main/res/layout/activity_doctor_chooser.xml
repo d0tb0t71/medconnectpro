@@ -73,7 +73,7 @@
                 android:backgroundTint="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Search"
+                android:hint="Search"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 />

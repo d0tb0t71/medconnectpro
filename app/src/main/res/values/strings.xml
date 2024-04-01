@@ -35,5 +35,39 @@
         <item>Luton</item>
     </string-array>
 
+    <string-array name="doctor_department_list">
+        <item>Allergists</item>
+        <item>Anesthesiologists</item>
+        <item>Cardiologists</item>
+        <item>Dermatologists</item>
+        <item>Endocrinologists</item>
+        <item>Family Physicians/General Practitioners</item>
+        <item>Gastroenterologists</item>
+        <item>Geriatricians</item>
+        <item>Hematologists</item>
+        <item>Immunologists</item>
+        <item>Infectious Disease Specialists</item>
+        <item>Neonatologists</item>
+        <item>Nephrologists</item>
+        <item>Neurologists</item>
+        <item>Obstetricians/Gynecologists</item>
+        <item>Oncologists</item>
+        <item>Ophthalmologists</item>
+        <item>Orthopedic Surgeons</item>
+        <item>Otolaryngologists</item>
+        <item>Pathologists</item>
+        <item>Pediatricians</item>
+        <item>Physical Medicine and Rehabilitation Specialists</item>
+        <item>Plastic Surgeons</item>
+        <item>Podiatrists</item>
+        <item>Psychiatrists</item>
+        <item>Pulmonologists</item>
+        <item>Radiologists</item>
+        <item>Rheumatologists</item>
+        <item>Surgeons</item>
+        <item>Urologists</item>
+    </string-array>
+
+
 
 </resources>

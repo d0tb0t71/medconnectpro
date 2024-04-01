@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:padding="10dp"
+    android:padding="15dp"
     android:id="@+id/appointment_card_bg"
-    android:background="@color/white"
+    android:background="@drawable/rounded_white_bg"
     >
 
     <TextView
@@ -14,29 +14,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Patient Name"
-        android:textSize="25dp"
+        android:textSize="30dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         />
     <TextView
         android:id="@+id/a_dateTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date"
+        android:textColor="@color/black"
         android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         />
     <TextView
         android:id="@+id/a_timeTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Time"
+        android:textColor="@color/black"
         android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         />
     <TextView
         android:id="@+id/a_statusTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Status"
+        android:textColor="@color/black"
         android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         />
     
 </LinearLayout>
