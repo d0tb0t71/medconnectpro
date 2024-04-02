@@ -19,6 +19,8 @@
         app:headerLayout="@layout/drawer_header"
         android:background="@color/white"
         android:layout_gravity="start"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         android:visibility="visible"
         />
 

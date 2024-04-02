@@ -1,14 +1,20 @@
 package com.example.medconnectpro;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,6 +25,10 @@ import java.util.ArrayList;
 
 public class AppointmentListActivity extends AppCompatActivity implements OnItemClick{
 
+
+    DrawerLayout drawerLayout;
+    ImageView backBtn, navBtn;
+    NavigationView navView;
     RecyclerView appointmentRecyclerView;
     private LinearLayoutManager linearLayoutManager;
 
@@ -36,6 +46,12 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_list);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        backBtn = findViewById(R.id.backBtn);
+        navBtn = findViewById(R.id.navBtn);
+        navView = findViewById(R.id.navView);
+        navView.bringToFront();
 
         appointmentRecyclerView = findViewById(R.id.appointmentRecyclerView);
 
@@ -57,6 +73,29 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
         db = FirebaseFirestore.getInstance();
 
         getData(departmentName, cityName, doctorMail, docDate);
+
+        navBtn.setOnClickListener(v-> {
+
+            drawerLayout.open();
+
+        });
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                if (id == R.id.HomeMenu){
+                    Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+
+                return false;
+            }
+        });
+
 
     }
 

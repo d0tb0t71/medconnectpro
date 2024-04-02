@@ -48,6 +48,8 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
         backBtn = findViewById(R.id.backBtn);
         navBtn = findViewById(R.id.navBtn);
         navView = findViewById(R.id.navView);
+        navView.bringToFront();
+
 
         departmentName = getIntent().getStringExtra("docDepartment");
 
@@ -81,10 +83,9 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
                 int id = item.getItemId();
 
                 if (id == R.id.HomeMenu){
-                    Toast.makeText(getApplicationContext(), "Home Clicked", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
                     startActivity(intent);
-                    finish();
+                    finishAffinity();
                 }
 
                 return false;

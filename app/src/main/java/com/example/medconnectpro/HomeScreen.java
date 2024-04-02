@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -45,6 +46,8 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
         backBtn = findViewById(R.id.backBtn);
         navBtn = findViewById(R.id.navBtn);
         navView = findViewById(R.id.navView);
+        navView.bringToFront();
+
 
         departmentRecyclerView = findViewById(R.id.departmentRecyclerView);
 
@@ -77,6 +80,10 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
 
                 if (id == R.id.HomeMenu){
                     Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                } if (id == R.id.AboutMenu){
+                    Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
                     startActivity(intent);
                     finish();
                 }

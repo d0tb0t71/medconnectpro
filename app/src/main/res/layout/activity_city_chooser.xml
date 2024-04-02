@@ -20,6 +20,8 @@
         android:background="@color/white"
         android:layout_gravity="start"
         android:visibility="visible"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         />
 
     <LinearLayout
