@@ -1,10 +1,14 @@
 package com.example.medconnectpro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +20,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Timestamp;
@@ -135,17 +143,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 Map<String, Object> dateModel = new HashMap();
                 dateModel.put("date", selectedDate);
 
-                db.collection("department")
-                        .document(departmentName)
-                        .collection("city")
-                        .document(doctorCity)
-                        .collection("doctor")
-                        .document(doctorEmail)
-                        .collection("dates")
-                        .document(selectedDate)
-                        .set(dateModel);
 
-                db.collection("department")
+                DocumentReference docIdRef = db.collection("department")
                         .document(departmentName)
                         .collection("city")
                         .document(doctorCity)
@@ -154,10 +153,65 @@ public class BookAppointmentActivity extends AppCompatActivity {
                         .collection("dates")
                         .document(selectedDate)
                         .collection("appointments")
-                        .document(timestamp.toString())
-                        .set(appointmentModel);
+                        .document(selectedTime);
+                docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
 
-                finish();
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(BookAppointmentActivity.this);
+                                builder1.setTitle("The Time slot is already booked.");
+                                builder1.setMessage("Select another time or check the appointment list to look for available slots.");
+                                builder1.setCancelable(true);
+
+                                builder1.setPositiveButton(
+                                        "I UNDERSTAND",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+
+                            } else {
+
+                                db.collection("department")
+                                        .document(departmentName)
+                                        .collection("city")
+                                        .document(doctorCity)
+                                        .collection("doctor")
+                                        .document(doctorEmail)
+                                        .collection("dates")
+                                        .document(selectedDate)
+                                        .set(dateModel);
+
+                                db.collection("department")
+                                        .document(departmentName)
+                                        .collection("city")
+                                        .document(doctorCity)
+                                        .collection("doctor")
+                                        .document(doctorEmail)
+                                        .collection("dates")
+                                        .document(selectedDate)
+                                        .collection("appointments")
+                                        .document(selectedTime)
+                                        .set(appointmentModel);
+
+                                    finish();
+                            }
+                        } else {
+                            Log.d("ERROR", "Failed with: ", task.getException());
+                        }
+                    }
+                });
+
+
+
+
 
 
             }
@@ -185,7 +239,21 @@ public class BookAppointmentActivity extends AppCompatActivity {
                     selectedTime = hour + "_" + min;
                 } else{
 
-                    Toast.makeText(BookAppointmentActivity.this, "Please select Time between 2:00 to 6:00", Toast.LENGTH_LONG).show();
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(BookAppointmentActivity.this);
+                    builder1.setTitle("Please select Time between 2:00 to 6:00\"");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "I UNDERSTAND",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
 
                 }
 

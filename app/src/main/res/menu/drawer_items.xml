@@ -19,6 +19,12 @@
         />
 
     <item
+        android:id="@+id/HelpMenu"
+        android:title="Help"
+        android:icon="@drawable/baseline_history_24"
+        />
+
+    <item
         android:id="@+id/AboutMenu"
         android:title="About"
         android:icon="@drawable/baseline_info_24"
