@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AppointmentListActivity extends AppCompatActivity implements OnItemClick{
 
@@ -61,8 +63,8 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
         docDate = getIntent().getStringExtra("docDate");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
         appointmentRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
@@ -121,17 +123,30 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
                             }
 
-//                            Collections.sort(list, new Comparator<DateModel>() {
-//                                @Override
-//                                public int compare(DateModel o1, DateModel o2) {
-//                                    // Assuming date format is in "yyyy-MM-dd"
-//                                    return o1.getDate().compareTo(o2.getDate());
-//                                }
-//                            });
 
-                            appointmentAdapter.notifyDataSetChanged();
 
                         }
+
+                        Collections.sort(list, new Comparator<AppointmentModel>() {
+                            @Override
+                            public int compare(AppointmentModel a, AppointmentModel b) {
+                                String[] timeA = a.getTime().split("_");
+                                String[] timeB = b.getTime().split("_");
+
+                                int hourA = Integer.parseInt(timeA[0]);
+                                int minuteA = Integer.parseInt(timeA[1]);
+                                int hourB = Integer.parseInt(timeB[0]);
+                                int minuteB = Integer.parseInt(timeB[1]);
+
+                                if (hourA != hourB) {
+                                    return hourA - hourB;
+                                } else {
+                                    return minuteA - minuteB;
+                                }
+                            }
+                        });
+
+                        appointmentAdapter.notifyDataSetChanged();
 
                     }
                 });

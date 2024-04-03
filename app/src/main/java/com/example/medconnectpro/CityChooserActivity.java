@@ -21,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CityChooserActivity extends AppCompatActivity implements OnItemClick {
 
@@ -115,9 +117,17 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
 
                             }
 
-                            cityAdapter.notifyDataSetChanged();
-
                         }
+
+                        Collections.sort(list, new Comparator<CityModel>() {
+                            @Override
+                            public int compare(CityModel a, CityModel b) {
+                                // Compare the names alphabetically
+                                return a.getName().compareTo(b.getName());
+                            }
+                        });
+
+                        cityAdapter.notifyDataSetChanged();
 
                     }
                 });

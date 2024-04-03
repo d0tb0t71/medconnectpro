@@ -35,7 +35,7 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
 
         DateModel dateModel = list.get(position);
 
-        holder.title.setText(dateModel.getDate());
+        holder.title.setText(dateModel.getDate().replaceAll("_", "/"));
         holder.count.setText(""+dateModel.getCount());
 
 
@@ -71,7 +71,6 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
 
             title = itemView.findViewById(R.id.list_title);
             count = itemView.findViewById(R.id.list_count);
-
 
         }
     }

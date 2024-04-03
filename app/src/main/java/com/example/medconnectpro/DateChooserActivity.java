@@ -63,8 +63,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
         doctorMail = getIntent().getStringExtra("docEmail");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
         datesRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
@@ -134,13 +134,31 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
                             }
 
-//                            Collections.sort(list, new Comparator<DateModel>() {
-//                                @Override
-//                                public int compare(DateModel o1, DateModel o2) {
-//                                    // Assuming date format is in "yyyy-MM-dd"
-//                                    return o1.getDate().compareTo(o2.getDate());
-//                                }
-//                            });
+                            Collections.sort(list, new Comparator<DateModel>() {
+                                @Override
+                                public int compare(DateModel a, DateModel b) {
+                                    // Split the date strings
+                                    String[] dateA = a.getDate().split("_");
+                                    String[] dateB = b.getDate().split("_");
+
+                                    // Convert date strings to integers
+                                    int dayA = Integer.parseInt(dateA[0]);
+                                    int monthA = Integer.parseInt(dateA[1]);
+                                    int yearA = Integer.parseInt(dateA[2]);
+                                    int dayB = Integer.parseInt(dateB[0]);
+                                    int monthB = Integer.parseInt(dateB[1]);
+                                    int yearB = Integer.parseInt(dateB[2]);
+
+                                    // Compare years
+                                    if (yearA != yearB) {
+                                        return yearA - yearB;
+                                    } else if (monthA != monthB) { // Compare months if years are equal
+                                        return monthA - monthB;
+                                    } else { // Compare days if both years and months are equal
+                                        return dayA - dayB;
+                                    }
+                                }
+                            });
 
                             dateAdapter.notifyDataSetChanged();
 

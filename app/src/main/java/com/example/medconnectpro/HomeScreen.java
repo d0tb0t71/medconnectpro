@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeScreen extends AppCompatActivity implements OnItemClick{
 
@@ -52,8 +54,8 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
         departmentRecyclerView = findViewById(R.id.departmentRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
         departmentRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
@@ -113,12 +115,19 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
                                 DepartmentModel depModel = dc.getDocument().toObject(DepartmentModel.class);
 
                                 list.add(depModel);
-
                             }
 
-                            departmentAdapter.notifyDataSetChanged();
-
                         }
+
+                        Collections.sort(list, new Comparator<DepartmentModel>() {
+                            @Override
+                            public int compare(DepartmentModel a, DepartmentModel b) {
+                                // Compare the names alphabetically
+                                return a.getName().compareTo(b.getName());
+                            }
+                        });
+
+                        departmentAdapter.notifyDataSetChanged();
 
                     }
                 });

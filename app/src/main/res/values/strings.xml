@@ -2,6 +2,7 @@
     <string name="app_name">MEDCONNECTPRO</string>
 
     <string-array name="blood_group_list">
+        <item>Blood Group</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -13,6 +14,7 @@
     </string-array>
 
     <string-array name="city_list">
+        <item>Select City</item>
         <item>London</item>
         <item>Birmingham</item>
         <item>Manchester</item>
@@ -36,6 +38,7 @@
     </string-array>
 
     <string-array name="doctor_department_list">
+        <item>Select Department</item>
         <item>Allergists</item>
         <item>Anesthesiologists</item>
         <item>Cardiologists</item>

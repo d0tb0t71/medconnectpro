@@ -36,7 +36,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         AppointmentModel appointmentModel = list.get(position);
 
         holder.patient.setText(appointmentModel.getName());
-        holder.date.setText("Date: "+appointmentModel.getDate().replaceAll("_" , ":"));
+        holder.date.setText("Date: "+appointmentModel.getDate().replaceAll("_" , "/"));
         holder.time.setText("Time: "+appointmentModel.getTime().replaceAll("_" , ":"));
         holder.status.setText("Status: "+ "Pending");
 

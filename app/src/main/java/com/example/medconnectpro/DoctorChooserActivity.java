@@ -21,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DoctorChooserActivity extends AppCompatActivity implements OnItemClick {
 
@@ -55,8 +57,8 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
         doctorRecyclerView.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
@@ -116,9 +118,17 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
                             }
 
-                            doctorAdapter.notifyDataSetChanged();
-
                         }
+
+                        Collections.sort(list, new Comparator<UserModel>() {
+                            @Override
+                            public int compare(UserModel a, UserModel b) {
+                                // Compare the names alphabetically
+                                return a.getFullname().compareTo(b.getFullname());
+                            }
+                        });
+
+                        doctorAdapter.notifyDataSetChanged();
 
                     }
                 });
