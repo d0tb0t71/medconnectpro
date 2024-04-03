@@ -84,6 +84,10 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
                     Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
                     startActivity(intent);
                     finishAffinity();
+                } if (id == R.id.ProfileMenu){
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
                 } if (id == R.id.AboutMenu){
                     Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
                     startActivity(intent);
@@ -122,7 +126,6 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
                         Collections.sort(list, new Comparator<DepartmentModel>() {
                             @Override
                             public int compare(DepartmentModel a, DepartmentModel b) {
-                                // Compare the names alphabetically
                                 return a.getName().compareTo(b.getName());
                             }
                         });
