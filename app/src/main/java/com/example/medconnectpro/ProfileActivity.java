@@ -3,8 +3,10 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,8 +22,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView p_name, p_email, p_city, p_dep, p_mobile;
 
+    Button updateProfileBtn;
     FirebaseFirestore db;
     FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         p_city = findViewById(R.id.p_city);
         p_dep = findViewById(R.id.p_dep);
         p_mobile = findViewById(R.id.p_mobile);
+        updateProfileBtn = findViewById(R.id.updateProfileBtn);
 
 
         db = FirebaseFirestore.getInstance();
@@ -62,6 +67,12 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
             }
+        });
+
+        updateProfileBtn.setOnClickListener(v-> {
+
+            startActivity(new Intent(getApplicationContext(), UpdateProfileActivity.class));
+
         });
 
     }
