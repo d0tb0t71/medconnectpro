@@ -135,12 +135,19 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
     }
 
     @Override
-    public void onClick(String cityName) {
+    public <T> void onClick(T model) {
 
-        Intent intent = new Intent(getApplicationContext(),DoctorChooserActivity.class);
-        intent.putExtra("docDepartment", departmentName);
-        intent.putExtra("docCity", cityName);
-        startActivity(intent);
+
+        if (model instanceof CityModel) {
+            CityModel cityModel = (CityModel) model;
+
+            Intent intent = new Intent(getApplicationContext(), DoctorChooserActivity.class);
+            intent.putExtra("docDepartment", departmentName);
+            intent.putExtra("docCity", cityModel.getName());
+
+
+            startActivity(intent);
+        }
 
     }
 }

@@ -1,6 +1,8 @@
 package com.example.medconnectpro;
 
-public class DateModel {
+import java.io.Serializable;
+
+public class DateModel implements Serializable {
 
     String date;
     int count;

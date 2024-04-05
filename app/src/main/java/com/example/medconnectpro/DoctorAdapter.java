@@ -46,7 +46,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.MyViewHold
             @Override
             public void onClick(View v) {
 
-                mCallback.onClick(userModel.getEmail());
+                mCallback.onClick(userModel);
 
             }
         });

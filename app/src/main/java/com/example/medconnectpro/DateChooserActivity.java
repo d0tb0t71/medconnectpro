@@ -44,6 +44,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
     String departmentName = "";
     String cityName = "";
     String doctorMail = "";
+    String doctorName = "";
+    String doctorMobile = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
         departmentName = getIntent().getStringExtra("docDepartment");
         cityName = getIntent().getStringExtra("docCity");
         doctorMail = getIntent().getStringExtra("docEmail");
+        doctorName = getIntent().getStringExtra("docName");
+        doctorMobile = getIntent().getStringExtra("docMobile");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 //        layoutManager.setReverseLayout(true);
@@ -82,8 +86,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
             intent.putExtra("docDepartment", departmentName);
             intent.putExtra("docCity", cityName);
             intent.putExtra("docEmail", doctorMail);
-            intent.putExtra("docName", doctorMail);
-            intent.putExtra("docDep", doctorMail);
+            intent.putExtra("docName", doctorName);
+            intent.putExtra("docMobile", doctorMobile);
             startActivity(intent);
 
         });
@@ -172,14 +176,21 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
     }
 
     @Override
-    public void onClick(String value) {
+    public <T> void onClick(T model) {
 
-        Intent intent = new Intent(getApplicationContext(),AppointmentListActivity.class);
-        intent.putExtra("docDepartment", departmentName);
-        intent.putExtra("docCity", cityName);
-        intent.putExtra("docEmail", doctorMail);
-        intent.putExtra("docDate", value);
-        startActivity(intent);
+        if (model instanceof DateModel) {
+            DateModel dateModel = (DateModel) model;
+
+            Intent intent = new Intent(getApplicationContext(),AppointmentListActivity.class);
+            intent.putExtra("docDepartment", departmentName);
+            intent.putExtra("docCity", cityName);
+            intent.putExtra("docEmail", doctorMail);
+            intent.putExtra("docDate", ((DateModel) model).getDate());
+
+            startActivity(intent);
+
+        }
+
 
     }
 }

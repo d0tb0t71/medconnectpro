@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HomeScreen extends AppCompatActivity implements OnItemClick{
+public class HomeScreen extends AppCompatActivity implements OnItemClick {
 
 
     DrawerLayout drawerLayout;
@@ -145,11 +145,14 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
     }
 
     @Override
-    public void onClick(String depName) {
+    public <T> void onClick(T model) {
+        if (model instanceof DepartmentModel) {
+            DepartmentModel departmentModel = (DepartmentModel) model;
 
-        Intent intent = new Intent(getApplicationContext(),CityChooserActivity.class);
-        intent.putExtra("docDepartment", depName);
-        startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), CityChooserActivity.class);
+            intent.putExtra("docDepartment", departmentModel.getName());
 
+            startActivity(intent);
+        }
     }
 }

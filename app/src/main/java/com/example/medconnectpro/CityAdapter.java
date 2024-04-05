@@ -47,7 +47,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
-                mCallback.onClick(cityModel.getName());
+                mCallback.onClick(cityModel);
 
             }
         });

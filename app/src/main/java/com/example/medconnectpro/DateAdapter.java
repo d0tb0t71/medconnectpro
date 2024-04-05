@@ -44,7 +44,7 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
-                mCallback.onClick(dateModel.getDate());
+                mCallback.onClick(dateModel);
 
             }
         });

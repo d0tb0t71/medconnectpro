@@ -154,7 +154,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     }
 
     @Override
-    public void onClick(String value) {
+    public <T> void onClick(T model) {
 
     }
 }

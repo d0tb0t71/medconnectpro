@@ -1,5 +1,5 @@
 package com.example.medconnectpro;
 
 public interface OnItemClick {
-    void onClick (String value);
+    <T> void onClick (T model);
 }

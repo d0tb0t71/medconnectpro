@@ -47,7 +47,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
             @Override
             public void onClick(View v) {
 
-                mCallback.onClick(departmentModel.getName());
+                mCallback.onClick(departmentModel);
 
             }
         });

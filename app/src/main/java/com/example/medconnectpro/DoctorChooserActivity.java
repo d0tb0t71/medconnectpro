@@ -136,14 +136,22 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
     }
 
     @Override
-    public void onClick(String value) {
+    public <T> void onClick(T model) {
 
-        Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
-        intent.putExtra("docDepartment", departmentName);
-        intent.putExtra("docCity", cityName);
-        intent.putExtra("docEmail", value);
-        startActivity(intent);
+        if (model instanceof UserModel) {
+            UserModel userModel = (UserModel) model;
 
+            Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
+            intent.putExtra("docDepartment", ((UserModel) model).getDepartment());
+            intent.putExtra("docCity", ((UserModel) model).getCity());
+            intent.putExtra("docEmail", ((UserModel) model).getEmail());
+
+            intent.putExtra("docName", ((UserModel) model).getFullname());
+            intent.putExtra("docMobile", ((UserModel) model).getPhone());
+
+            startActivity(intent);
+
+        }
 
     }
 }

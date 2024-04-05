@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +55,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     String doctorCity = "";
     String doctorEmail = "";
     String doctorName = "";
-    String doctorDep = "";
+    String doctorMobile = "";
     String timeStamp = "";
 
     FirebaseFirestore db;
@@ -71,7 +73,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         doctorCity = getIntent().getStringExtra("docCity");
         doctorEmail = getIntent().getStringExtra("docEmail");
         doctorName = getIntent().getStringExtra("docName");
-        doctorDep = getIntent().getStringExtra("docDep");
+        doctorMobile = getIntent().getStringExtra("docMobile");
 
         createAppointmentBtn = findViewById(R.id.createAppointmentBtn);
         bloodGroupSpinner = findViewById(R.id.bloodGroupSpinner);
@@ -81,6 +83,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
         mobileNumberET = findViewById(R.id.mobileNumberET);
         selectDateET = findViewById(R.id.selectDateET);
         selectTimeET = findViewById(R.id.selectTimeET);
+        docNameTV = findViewById(R.id.docNameTV);
+        callBtnTV = findViewById(R.id.callBtnTV);
 
         String[] bloodGroupList = getResources().getStringArray(R.array.blood_group_list);
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bloodGroupList);
@@ -92,6 +96,15 @@ public class BookAppointmentActivity extends AppCompatActivity {
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySelectSpinner.setAdapter(cityAdapter);
 
+        docNameTV.setText(doctorName);
+
+        callBtnTV.setOnClickListener(v-> {
+
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" +doctorMobile));
+            startActivity(intent);
+
+        });
 
         bloodGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -139,10 +152,10 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-            if(!name.isEmpty() && !mobile.isEmpty() && !selectedDate.isEmpty() && !selectedDate.isEmpty() && !bloodGroup.isEmpty() && !cityName.isEmpty()){
+            if(!name.isEmpty() && !mobile.isEmpty() && !selectedDate.isEmpty() && !selectedTime.isEmpty() && !bloodGroup.isEmpty() && !bloodGroup.contains("Blood Group") && !cityName.contains("Select City") && !cityName.isEmpty()){
 
 
-                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid(), doctorName, doctorDep);
+                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid(), doctorName, departmentName);
 
                 Map<String, Object> dateModel = new HashMap();
                 dateModel.put("date", selectedDate);
@@ -224,6 +237,9 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
 
 
+            }
+            else{
+                Toast.makeText(this, "Invalid Input.\nPlease fill with correct information", Toast.LENGTH_LONG).show();
             }
 
         });
