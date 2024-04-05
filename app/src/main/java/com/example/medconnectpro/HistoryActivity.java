@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,24 +26,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HomeScreen extends AppCompatActivity implements OnItemClick{
+public class HistoryActivity extends AppCompatActivity implements OnItemClick {
 
 
     DrawerLayout drawerLayout;
     ImageView backBtn, navBtn;
     NavigationView navView;
-    RecyclerView departmentRecyclerView;
-
+    RecyclerView historyRecyclerView;
     private LinearLayoutManager linearLayoutManager;
-    DepartmentAdapter departmentAdapter;
 
-    ArrayList<DepartmentModel> list;
+    AppointmentAdapter appointmentAdapter;
+
+    ArrayList<AppointmentModel> list;
     FirebaseFirestore db;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_history);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         backBtn = findViewById(R.id.backBtn);
@@ -50,23 +52,24 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
         navView = findViewById(R.id.navView);
         navView.bringToFront();
 
+        historyRecyclerView = findViewById(R.id.historyRecyclerView);
 
-        departmentRecyclerView = findViewById(R.id.departmentRecyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
-        departmentRecyclerView.setLayoutManager(layoutManager);
-
-        list = new ArrayList<>();
-
-        departmentAdapter = new DepartmentAdapter(getApplicationContext(),list, this);
-        departmentRecyclerView.setAdapter(departmentAdapter);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
 
-        getData();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        //layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        historyRecyclerView.setLayoutManager(layoutManager);
+
+        list = new ArrayList<>();
+
+        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this);
+        historyRecyclerView.setAdapter(appointmentAdapter);
+
+
+        getData(user.getUid());
 
         navBtn.setOnClickListener(v-> {
 
@@ -85,21 +88,6 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
                     startActivity(intent);
                     finishAffinity();
                 }
-                else if (id == R.id.ProfileMenu){
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if (id == R.id.HistoryMenu){
-                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if (id == R.id.AboutMenu){
-                    Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
 
                 return false;
             }
@@ -107,15 +95,15 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
 
     }
 
-    private void getData() {
+    private void getData(String id) {
 
-        db.collection("department")
+        db.collection("users").document(user.getUid()).collection("appointments")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                         if (error != null) {
-                            Toast.makeText(getApplicationContext(), "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error " + error.getMessage(), Toast.LENGTH_LONG).show();
                             return;
                         }
 
@@ -123,21 +111,36 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
 
                             if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                DepartmentModel depModel = dc.getDocument().toObject(DepartmentModel.class);
+                                AppointmentModel appointmentModel = dc.getDocument().toObject(AppointmentModel.class);
 
-                                list.add(depModel);
+                                list.add(appointmentModel);
+
                             }
+
+
 
                         }
 
-                        Collections.sort(list, new Comparator<DepartmentModel>() {
+                        Collections.sort(list, new Comparator<AppointmentModel>() {
                             @Override
-                            public int compare(DepartmentModel a, DepartmentModel b) {
-                                return a.getName().compareTo(b.getName());
+                            public int compare(AppointmentModel a, AppointmentModel b) {
+                                String[] timeA = a.getTime().split("_");
+                                String[] timeB = b.getTime().split("_");
+
+                                int hourA = Integer.parseInt(timeA[0]);
+                                int minuteA = Integer.parseInt(timeA[1]);
+                                int hourB = Integer.parseInt(timeB[0]);
+                                int minuteB = Integer.parseInt(timeB[1]);
+
+                                if (hourA != hourB) {
+                                    return hourA - hourB;
+                                } else {
+                                    return minuteA - minuteB;
+                                }
                             }
                         });
 
-                        departmentAdapter.notifyDataSetChanged();
+                        appointmentAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -145,11 +148,7 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick{
     }
 
     @Override
-    public void onClick(String depName) {
-
-        Intent intent = new Intent(getApplicationContext(),CityChooserActivity.class);
-        intent.putExtra("docDepartment", depName);
-        startActivity(intent);
+    public void onClick(String value) {
 
     }
 }

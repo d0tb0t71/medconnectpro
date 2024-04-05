@@ -2,12 +2,12 @@ package com.example.medconnectpro;
 
 public class AppointmentModel {
 
-    String id, name, mobile, date, time, bGroup, city, bookedBy;
+    String id, name, mobile, date, time, bGroup, city, bookedBy, docName , docDep;
 
     public AppointmentModel() {
     }
 
-    public AppointmentModel(String id, String name, String mobile, String date, String time, String bGroup, String city, String bookedBy) {
+    public AppointmentModel(String id, String name, String mobile, String date, String time, String bGroup, String city, String bookedBy, String docName, String docDep) {
         this.id = id;
         this.name = name;
         this.mobile = mobile;
@@ -16,6 +16,8 @@ public class AppointmentModel {
         this.bGroup = bGroup;
         this.city = city;
         this.bookedBy = bookedBy;
+        this.docName = docName;
+        this.docDep = docDep;
     }
 
     public String getId() {
@@ -80,5 +82,21 @@ public class AppointmentModel {
 
     public void setBookedBy(String bookedBy) {
         this.bookedBy = bookedBy;
+    }
+
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
+
+    public String getDocDep() {
+        return docDep;
+    }
+
+    public void setDocDep(String docDep) {
+        this.docDep = docDep;
     }
 }

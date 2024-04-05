@@ -54,6 +54,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/docNameTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -79,6 +80,7 @@
                    />
 
                <TextView
+                   android:id="@+id/callBtnTV"
                    android:layout_width="match_parent"
                    android:layout_height="50dp"
                    android:layout_marginLeft="5dp"

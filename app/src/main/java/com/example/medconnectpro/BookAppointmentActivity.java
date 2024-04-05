@@ -37,7 +37,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
 
     EditText patientNameET, mobileNumberET;
-    TextView selectTimeET, selectDateET;
+    TextView selectTimeET, selectDateET, docNameTV , callBtnTV;
     Button createAppointmentBtn;
     CustomTimePickerDialog customTimePickerDialog;
 
@@ -52,6 +52,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
     String departmentName = "";
     String doctorCity = "";
     String doctorEmail = "";
+    String doctorName = "";
+    String doctorDep = "";
     String timeStamp = "";
 
     FirebaseFirestore db;
@@ -68,6 +70,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
         departmentName = getIntent().getStringExtra("docDepartment");
         doctorCity = getIntent().getStringExtra("docCity");
         doctorEmail = getIntent().getStringExtra("docEmail");
+        doctorName = getIntent().getStringExtra("docName");
+        doctorDep = getIntent().getStringExtra("docDep");
 
         createAppointmentBtn = findViewById(R.id.createAppointmentBtn);
         bloodGroupSpinner = findViewById(R.id.bloodGroupSpinner);
@@ -138,7 +142,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             if(!name.isEmpty() && !mobile.isEmpty() && !selectedDate.isEmpty() && !selectedDate.isEmpty() && !bloodGroup.isEmpty() && !cityName.isEmpty()){
 
 
-                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid());
+                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid(), doctorName, doctorDep);
 
                 Map<String, Object> dateModel = new HashMap();
                 dateModel.put("date", selectedDate);
@@ -178,6 +182,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
                                 alert11.show();
 
                             } else {
+
+                                db.collection("users")
+                                        .document(user.getUid())
+                                        .collection("appointments")
+                                        .document(timestamp.toString())
+                                        .set(appointmentModel);
 
                                 db.collection("department")
                                         .document(departmentName)

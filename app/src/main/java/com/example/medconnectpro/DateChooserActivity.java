@@ -82,6 +82,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
             intent.putExtra("docDepartment", departmentName);
             intent.putExtra("docCity", cityName);
             intent.putExtra("docEmail", doctorMail);
+            intent.putExtra("docName", doctorMail);
+            intent.putExtra("docDep", doctorMail);
             startActivity(intent);
 
         });
