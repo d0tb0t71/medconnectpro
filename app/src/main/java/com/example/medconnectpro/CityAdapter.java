@@ -39,8 +39,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
         CityModel cityModel = list.get(position);
 
         holder.title.setText(cityModel.getName());
-        holder.count.setText(""+cityModel.getCount());
-
 
 
         holder.title.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +64,15 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,count;
+        TextView title;
+        ImageView deleteIcon;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.list_title);
-            count = itemView.findViewById(R.id.list_count);
+            deleteIcon = itemView.findViewById(R.id.deleteIconBtn);
 
 
         }

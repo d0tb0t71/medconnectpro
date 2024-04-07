@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -190,6 +193,31 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
             startActivity(intent);
 
         }
+
+
+    }
+
+    @Override
+    public void onClickDelete(String s) {
+
+        UserDataManager userDataManager = UserDataManager.getInstance();
+
+        db.collection("department").document(userDataManager.getDepartment()).collection("city").document(userDataManager.getCity()).collection("doctor").document(userDataManager.getEmail()).collection("dates").document(s).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                Toast.makeText(DateChooserActivity.this, "Date has been closed", Toast.LENGTH_SHORT).show();
+                recreate();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(DateChooserActivity.this, "Unknown Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
 
     }

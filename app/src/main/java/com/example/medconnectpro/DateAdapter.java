@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -36,9 +39,11 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
         DateModel dateModel = list.get(position);
 
         holder.title.setText(dateModel.getDate().replaceAll("_", "/"));
-        holder.count.setText(""+dateModel.getCount());
 
-
+        UserDataManager userDataManager = UserDataManager.getInstance();
+         if (userDataManager.isDoctor()){
+             holder.deleteIcon.setVisibility(View.VISIBLE);
+         }
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +53,12 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
 
             }
         });
+
+         holder.deleteIcon.setOnClickListener(v -> {
+
+             mCallback.onClickDelete(dateModel.getDate());
+
+         });
 
     }
 
@@ -63,14 +74,15 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,count;
+        TextView title;
+        ImageView deleteIcon;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.list_title);
-            count = itemView.findViewById(R.id.list_count);
+            deleteIcon = itemView.findViewById(R.id.deleteIconBtn);
 
         }
     }

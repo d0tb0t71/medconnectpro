@@ -145,7 +145,7 @@
                 android:paddingLeft="20dp" />
 
             <Button
-                android:id="@+id/reg_btn"
+                android:id="@+id/updateNowBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Update Now"

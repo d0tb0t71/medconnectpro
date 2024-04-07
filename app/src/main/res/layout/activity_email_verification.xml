@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/offWhite"
-    tools:context=".RegAccountOption">
+    tools:context=".EmailVerificationActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -49,6 +49,17 @@
                 android:backgroundTint="@color/darkRed"
                 android:text="Refresh"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/resendVmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resend verification link"
+                android:textSize="16dp"
+                android:textColor="#00A6FF"
+                android:textAlignment="center"
+
+                />
 
         </LinearLayout>
 

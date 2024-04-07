@@ -151,4 +151,9 @@ public class HistoryActivity extends AppCompatActivity implements OnItemClick {
     public <T> void onClick(T model) {
 
     }
+
+    @Override
+    public void onClickDelete(String s) {
+
+    }
 }

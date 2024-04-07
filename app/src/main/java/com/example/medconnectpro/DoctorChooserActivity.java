@@ -154,4 +154,9 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
         }
 
     }
+
+    @Override
+    public void onClickDelete(String s) {
+
+    }
 }

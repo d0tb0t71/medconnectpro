@@ -86,6 +86,7 @@
             >
 
             <EditText
+                android:id="@+id/email_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Email"
@@ -98,6 +99,7 @@
                 />
 
             <EditText
+                android:id="@+id/fullname_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Full Name"
@@ -109,6 +111,7 @@
                 />
 
             <EditText
+                android:id="@+id/username_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Username"
@@ -120,6 +123,19 @@
                 />
 
             <EditText
+                android:id="@+id/mobile_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:hint="Mobile"
+                android:background="@drawable/edittext_bg"
+                android:backgroundTint="@color/white"
+                android:paddingLeft="20dp"
+                android:layout_marginBottom="30dp"
+                android:inputType="text"
+                />
+
+            <EditText
+                android:id="@+id/pass_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Password"
@@ -133,6 +149,7 @@
                 />
 
             <EditText
+                android:id="@+id/repeat_pass_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:hint="Repeat Password"
@@ -148,6 +165,7 @@
 
 
             <Button
+                android:id="@+id/reg_Btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Create Account"

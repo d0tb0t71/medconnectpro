@@ -24,10 +24,9 @@ public class DoctorRegisterActivity extends AppCompatActivity {
 
     Button doc_reg_btn;
     EditText email, phone, fullName, username, department, city, pass, confirmPass;
-
     FirebaseAuth mAuth;
-
     FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

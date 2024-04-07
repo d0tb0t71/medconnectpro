@@ -155,4 +155,9 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
             startActivity(intent);
         }
     }
+
+    @Override
+    public void onClickDelete(String s) {
+
+    }
 }

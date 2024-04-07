@@ -150,4 +150,9 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
         }
 
     }
+
+    @Override
+    public void onClickDelete(String s) {
+
+    }
 }

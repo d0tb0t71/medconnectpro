@@ -39,9 +39,6 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
         DepartmentModel departmentModel = list.get(position);
 
         holder.title.setText(departmentModel.getName());
-        holder.count.setText(""+departmentModel.getCount());
-
-
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,14 +63,15 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,count;
+        TextView title;
+        ImageView deleteIcon;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.list_title);
-            count = itemView.findViewById(R.id.list_count);
+            deleteIcon = itemView.findViewById(R.id.deleteIconBtn);
 
 
         }

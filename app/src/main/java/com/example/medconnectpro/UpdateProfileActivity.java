@@ -37,7 +37,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         phone_ET = findViewById(R.id.phone_ET);
         departmentSpinner = findViewById(R.id.deparmentSpinner);
         citySpinner = findViewById(R.id.citySpinner);
-        updateNowBtn = findViewById(R.id.updateProfileBtn);
+        updateNowBtn = findViewById(R.id.updateNowBtn);
 
         String[] departmentList = getResources().getStringArray(R.array.doctor_department_list);
         ArrayAdapter<String> depAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departmentList);
