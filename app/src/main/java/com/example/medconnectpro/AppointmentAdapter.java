@@ -46,7 +46,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         UserDataManager userDataManager = UserDataManager.getInstance();
 
         if(userDataManager.isDoctor()){
-            holder.approveBookBtn.setVisibility(View.VISIBLE);
+
+            if(appointmentModel.getStatus().equals("Pending")){
+                holder.approveBookBtn.setVisibility(View.VISIBLE);
+            }
             holder.deleteBookBtn.setVisibility(View.VISIBLE);
         }
 
@@ -63,7 +66,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             @Override
             public void onClick(View v) {
 
-                appointmentCallback.onClickDeleteBooking(appointmentModel.getTime());
+                appointmentCallback.onClickDeleteBooking(appointmentModel);
 
             }
         });

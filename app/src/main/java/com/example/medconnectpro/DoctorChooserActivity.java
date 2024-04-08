@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -87,6 +88,23 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
                 if (id == R.id.HomeMenu){
                     Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
                     startActivity(intent);
+                    finishAffinity();
+                }
+                else if (id == R.id.ProfileMenu){
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.HistoryMenu){
+                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.AboutMenu){
+                    Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.LogoutMenu){
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finishAffinity();
                 }
 

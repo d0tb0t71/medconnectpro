@@ -121,9 +121,21 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
                     startActivity(intent);
                     finishAffinity();
                 }
+                else if (id == R.id.ProfileMenu){
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.HistoryMenu){
+                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.AboutMenu){
+                    Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                    startActivity(intent);
+                }
                 else if (id == R.id.LogoutMenu){
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finishAffinity();
                 }
 

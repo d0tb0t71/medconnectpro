@@ -89,20 +89,18 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
                 else if (id == R.id.ProfileMenu){
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(intent);
-                    finish();
                 }
                 else if (id == R.id.HistoryMenu){
                     Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                     startActivity(intent);
-                    finish();
                 }
                 else if (id == R.id.AboutMenu){
                     Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
                     startActivity(intent);
-                    finish();
                 }
                 else if (id == R.id.LogoutMenu){
                     FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finishAffinity();
                 }
 

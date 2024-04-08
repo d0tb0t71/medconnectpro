@@ -1,7 +1,7 @@
 package com.example.medconnectpro;
 
 public interface AppointmentOperation {
-    void onClickDeleteBooking(String s);
+    void onClickDeleteBooking(AppointmentModel model);
 
     void onClickApproveBooking(AppointmentModel model);
 }

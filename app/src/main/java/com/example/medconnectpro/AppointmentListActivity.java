@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -96,7 +98,23 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
                     startActivity(intent);
                     finishAffinity();
                 }
-
+                else if (id == R.id.ProfileMenu){
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.HistoryMenu){
+                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.AboutMenu){
+                    Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if (id == R.id.LogoutMenu){
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    finishAffinity();
+                }
                 return false;
             }
         });
@@ -167,9 +185,9 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     }
 
     @Override
-    public void onClickDeleteBooking(String s) {
+    public void onClickDeleteBooking(AppointmentModel model) {
 
-        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(s)
+        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(model.getTime())
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -188,6 +206,34 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
                     }
                 });
 
+        db.collection("users").document(model.getBookedBy()).collection("appointments").document(model.getId()).set(model)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Log.d("DOCSIDE" , "onComplete");
+
+                            Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
+                            recreate();
+                        }else{
+
+                            Log.d("DOCSIDE" , "onComplete failed");
+
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Log.d("DOCSIDE" , "onFailed");
+
+                        Toast.makeText(AppointmentListActivity.this, "Failed to approve ticket", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
     }
 
@@ -195,6 +241,65 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     public void onClickApproveBooking(AppointmentModel model) {
 
         model.setStatus("Approved");
+
+        Log.d("DOCSIDE" , "Clicked");
+
+        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(model.getTime()).set(model)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Log.d("DOCSIDE" , "onComplete");
+
+                            Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
+                            recreate();
+                        }else{
+
+                            Log.d("DOCSIDE" , "onComplete failed");
+
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Log.d("DOCSIDE" , "onFailed");
+
+                        Toast.makeText(AppointmentListActivity.this, "Failed to approve ticket", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+        db.collection("users").document(model.getBookedBy()).collection("appointments").document(model.getId()).set(model)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Log.d("DOCSIDE" , "onComplete");
+
+                            Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
+                            recreate();
+                        }else{
+
+                            Log.d("DOCSIDE" , "onComplete failed");
+
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Log.d("DOCSIDE" , "onFailed");
+
+                        Toast.makeText(AppointmentListActivity.this, "Failed to approve ticket", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
     }
