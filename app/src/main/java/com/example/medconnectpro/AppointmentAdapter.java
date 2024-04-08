@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,11 +17,13 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     ArrayList<AppointmentModel> list;
 
     private OnItemClick mCallback;
+    private AppointmentOperation appointmentCallback;
 
-    public AppointmentAdapter(Context context, ArrayList<AppointmentModel> list,  OnItemClick listener) {
+    public AppointmentAdapter(Context context, ArrayList<AppointmentModel> list,  OnItemClick listener, AppointmentOperation appointmentCallback) {
         this.context = context;
         this.list = list;
         this.mCallback = listener;
+        this.appointmentCallback = appointmentCallback;
     }
 
     @NonNull
@@ -38,14 +41,29 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.patient.setText(appointmentModel.getName());
         holder.date.setText("Date: "+appointmentModel.getDate().replaceAll("_" , "/"));
         holder.time.setText("Time: "+appointmentModel.getTime().replaceAll("_" , ":"));
-        holder.status.setText("Status: "+ "Pending");
+        holder.status.setText("Status: "+ appointmentModel.getStatus());
 
+        UserDataManager userDataManager = UserDataManager.getInstance();
 
-        holder.patient.setOnClickListener(new View.OnClickListener() {
+        if(userDataManager.isDoctor()){
+            holder.approveBookBtn.setVisibility(View.VISIBLE);
+            holder.deleteBookBtn.setVisibility(View.VISIBLE);
+        }
+
+        holder.approveBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mCallback.onClick(appointmentModel.getName());
+                appointmentCallback.onClickApproveBooking(appointmentModel);
+
+            }
+        });
+
+        holder.deleteBookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                appointmentCallback.onClickDeleteBooking(appointmentModel.getTime());
 
             }
         });
@@ -65,6 +83,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView patient,date, time, status;
+        ImageView approveBookBtn, deleteBookBtn;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -74,6 +93,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             date = itemView.findViewById(R.id.a_dateTV);
             time = itemView.findViewById(R.id.a_timeTV);
             status = itemView.findViewById(R.id.a_statusTV);
+            approveBookBtn = itemView.findViewById(R.id.approveBookBtn);
+            deleteBookBtn = itemView.findViewById(R.id.deleteBookBtn);
 
 
         }

@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,9 +28,13 @@ import java.util.Map;
 public class DoctorRegisterActivity extends AppCompatActivity {
 
     Button doc_reg_btn;
-    EditText email, phone, fullName, username, department, city, pass, confirmPass;
+    EditText email, phone, fullName, username, pass, confirmPass;
+    Spinner department, city;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+
+    String deptxt = "";
+    String citytxt = "";
 
 
     @Override
@@ -46,19 +55,55 @@ public class DoctorRegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        String[] depList = getResources().getStringArray(R.array.doctor_department_list);
+        ArrayAdapter<String> depAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, depList);
+        depAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        department.setAdapter(depAdapter);
+
+        String[] cityList = getResources().getStringArray(R.array.city_list);
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityList);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        city.setAdapter(cityAdapter);
+
+        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = depList[position];
+                deptxt = selectedItem;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = cityList[position];
+                citytxt = selectedItem;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
         doc_reg_btn.setOnClickListener(v->{
 
             String email_st = email.getText().toString();
             String phone_st = phone.getText().toString();
             String fullname_st = fullName.getText().toString();
             String username_st = fullName.getText().toString();
-            String department_st = department.getText().toString();
-            String city_st = city.getText().toString();
+            String department_st = deptxt;
+            String city_st = citytxt;
             String pass_st = pass.getText().toString();
             String c_pass_st = confirmPass.getText().toString();
 
 
-            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 10){
+            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 10 && !deptxt.equals("Select Depertment") && !citytxt.equals("Select City")){
 
                 mAuth.createUserWithEmailAndPassword(email_st,pass_st).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

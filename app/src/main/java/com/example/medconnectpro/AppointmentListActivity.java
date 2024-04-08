@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class AppointmentListActivity extends AppCompatActivity implements OnItemClick{
+public class AppointmentListActivity extends AppCompatActivity implements OnItemClick , AppointmentOperation{
 
 
     DrawerLayout drawerLayout;
@@ -69,7 +72,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
         list = new ArrayList<>();
 
-        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this);
+        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this, this);
         appointmentRecyclerView.setAdapter(appointmentAdapter);
 
         db = FirebaseFirestore.getInstance();
@@ -160,6 +163,39 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
     @Override
     public void onClickDelete(String s) {
+
+    }
+
+    @Override
+    public void onClickDeleteBooking(String s) {
+
+        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(s)
+                .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Toast.makeText(AppointmentListActivity.this, "Ticket removed", Toast.LENGTH_SHORT).show();
+                            recreate();
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AppointmentListActivity.this, "Failed to remove ticket", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+    }
+
+    @Override
+    public void onClickApproveBooking(AppointmentModel model) {
+
+        model.setStatus("Approved");
+
 
     }
 }

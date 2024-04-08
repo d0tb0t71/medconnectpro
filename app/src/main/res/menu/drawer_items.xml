@@ -33,7 +33,7 @@
     <item
         android:id="@+id/LogoutMenu"
         android:title="Logout"
-        android:icon="@drawable/baseline_info_24"
+        android:icon="@drawable/baseline_power_settings_new_24"
         />
 
 </menu>

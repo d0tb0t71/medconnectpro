@@ -5,3 +5,4 @@ public interface OnItemClick {
 
     void onClickDelete(String s);
 }
+

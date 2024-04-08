@@ -134,6 +134,18 @@
                 android:inputType="text"
                 />
 
+            <Spinner
+                android:id="@+id/city_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/edittext_bg"
+                android:backgroundTint="@color/white"
+                android:hint="Select City"
+                android:inputType="text"
+                android:paddingLeft="20dp" />
+
+
             <EditText
                 android:id="@+id/pass_Reg"
                 android:layout_width="match_parent"

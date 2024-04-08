@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -99,6 +100,10 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
                     Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
                     startActivity(intent);
                     finish();
+                }
+                else if (id == R.id.LogoutMenu){
+                    FirebaseAuth.getInstance().signOut();
+                    finishAffinity();
                 }
 
                 return false;

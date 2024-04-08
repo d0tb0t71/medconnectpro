@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,15 +34,17 @@ public class EmailVerificationActivity extends AppCompatActivity {
         verify_refresh_btn = findViewById(R.id.verify_refresh_btn);
         resendVmail = findViewById(R.id.resendVmail);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
 
         verify_refresh_btn.setOnClickListener(v-> {
 
-            firebaseAuth = FirebaseAuth.getInstance();
-            user = firebaseAuth.getCurrentUser();
-            db = FirebaseFirestore.getInstance();
-
+            user.reload();
 
             if(user.isEmailVerified()){
+
+                Log.d("EmailVF", "user verified");
 
                 DocumentReference docRef = db.collection("users").document(user.getUid());
 
@@ -49,12 +52,19 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
+
+                            Log.d("EmailVF", "onComplete");
+
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+
+                                Log.d("EmailVF", "document exist");
+
                                 UserModel userModel = document.toObject(UserModel.class);
 
                                 if(userModel.isDoctor()){
 
+                                    Log.d("EmailVF", "Doctor Login");
                                     UserDataManager userDataManager = UserDataManager.getInstance();
                                     userDataManager.setIsDoctor(userModel.isDoctor());
 
@@ -69,22 +79,41 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                 } else {
+                                    Log.d("EmailVF", "Patient Login");
                                     startActivity(new Intent(getApplicationContext(),HomeScreen.class));
                                     finishAffinity();
                                 }
 
                             } else {
-                                Log.d("TAG", "No such document");
+                                Log.d("EmailVF", "No such document");
                             }
                         } else {
-                            Log.d("TAG", "get failed with ", task.getException());
+                            Log.d("EmailVF", "get failed with ", task.getException());
                         }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Log.d("EmailVF", "onFailed");
+
+                        Toast.makeText(EmailVerificationActivity.this, "Failed, " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+
                     }
                 });
 
 
 
             }
+            else{
+                Log.d("EmailVF", "user not verified");
+
+            }
+
+            Log.d("EmailVF", "Clicked");
+
+
 
         });
 
@@ -92,6 +121,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
             user.sendEmailVerification();
 
+            Toast.makeText(this, "Verification mail has been sent", Toast.LENGTH_SHORT).show();
         });
 
     }

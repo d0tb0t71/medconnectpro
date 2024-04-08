@@ -133,33 +133,29 @@
                 android:inputType="text"
                 />
 
-            <TextView
+            <Spinner
                 android:id="@+id/doc_department_ET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
-                android:text="Select Date"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/edittext_bg"
                 android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPersonName"
-                android:textSize="18dp"
-                android:gravity="center_vertical"
-                />
+                android:hint="Blood Group"
+                android:inputType="text"
+                android:paddingLeft="20dp" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/doc_city_ET"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
-                android:text="Select Date"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/edittext_bg"
                 android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPersonName"
-                android:textSize="18dp"
-                android:gravity="center_vertical"
-                />
+                android:hint="Select City"
+                android:inputType="text"
+                android:paddingLeft="20dp" />
+
+
 
             <EditText
                 android:id="@+id/doc_pass_ET"
@@ -171,7 +167,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:drawableEnd="@drawable/baseline_remove_red_eye_24"
                 />
 
@@ -185,7 +181,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:drawableEnd="@drawable/baseline_remove_red_eye_24"
                 />
 

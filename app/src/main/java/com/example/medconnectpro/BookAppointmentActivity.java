@@ -155,7 +155,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             if(!name.isEmpty() && !mobile.isEmpty() && !selectedDate.isEmpty() && !selectedTime.isEmpty() && !bloodGroup.isEmpty() && !bloodGroup.contains("Blood Group") && !cityName.contains("Select City") && !cityName.isEmpty()){
 
 
-                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid(), doctorName, departmentName);
+                AppointmentModel appointmentModel = new AppointmentModel(timestamp.toString(),name, mobile, selectedDate, selectedTime, bloodGroup,cityName, user.getUid(), doctorName, departmentName, "Pending");
 
                 Map<String, Object> dateModel = new HashMap();
                 dateModel.put("date", selectedDate);

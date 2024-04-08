@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HistoryActivity extends AppCompatActivity implements OnItemClick {
+public class HistoryActivity extends AppCompatActivity implements OnItemClick, AppointmentOperation {
 
 
     DrawerLayout drawerLayout;
@@ -65,7 +65,7 @@ public class HistoryActivity extends AppCompatActivity implements OnItemClick {
 
         list = new ArrayList<>();
 
-        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this);
+        appointmentAdapter = new AppointmentAdapter(getApplicationContext(),list,this,this);
         historyRecyclerView.setAdapter(appointmentAdapter);
 
 
@@ -154,6 +154,18 @@ public class HistoryActivity extends AppCompatActivity implements OnItemClick {
 
     @Override
     public void onClickDelete(String s) {
+
+    }
+
+    @Override
+    public void onClickDeleteBooking(String s) {
+
+    }
+
+    @Override
+    public void onClickApproveBooking(AppointmentModel model) {
+
+
 
     }
 }

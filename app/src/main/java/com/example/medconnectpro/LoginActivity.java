@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressBar progressView;
 
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         progressView = findViewById(R.id.progressView);
 
         progressView.setVisibility(View.VISIBLE);
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
 
 
         login_now_btn.setOnClickListener(v->{
@@ -71,10 +77,56 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(task.isSuccessful() ){
                             if(user.isEmailVerified()){
-                                startActivity(new Intent(getApplicationContext(),HomeScreen.class));
+
+                                DocumentReference docRef = db.collection("users").document(user.getUid());
+
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+
+                                                Log.d("EmailVF", "document exist");
+
+                                                UserModel userModel = document.toObject(UserModel.class);
+
+                                                if(userModel.isDoctor()){
+
+                                                    Log.d("EmailVF", "Doctor Login");
+
+                                                    UserDataManager userDataManager = UserDataManager.getInstance();
+                                                    userDataManager.setIsDoctor(userModel.isDoctor());
+
+                                                    Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
+                                                    intent.putExtra("docDepartment", userModel.getDepartment());
+                                                    intent.putExtra("docCity", userModel.getCity());
+                                                    intent.putExtra("docEmail", userModel.getEmail());
+
+                                                    intent.putExtra("docName", userModel.getFullname());
+                                                    intent.putExtra("docMobile", userModel.getPhone());
+
+                                                    startActivity(intent);
+
+                                                } else {
+
+                                                    Log.d("EmailVF", "Patient Login");
+
+                                                    startActivity(new Intent(getApplicationContext(),HomeScreen.class));
+                                                    finishAffinity();
+                                                }
+
+                                            } else {
+                                                Log.d("EmailVF", "No such document");
+                                            }
+                                        } else {
+                                            Log.d("TAG", "get failed with ", task.getException());
+                                        }
+                                    }
+                                });
+
                             }
-                            else
-                            {
+                            else{
                                 startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
                             }
 
@@ -109,10 +161,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         if (user != null ){
 
             if(user.isEmailVerified()){
@@ -125,15 +173,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+
+                                Log.d("EmailVF", "document exist");
+
                                 UserModel userModel = document.toObject(UserModel.class);
 
                                 if(userModel.isDoctor()){
 
+                                    Log.d("EmailVF", "Doctor Login");
+
                                     UserDataManager userDataManager = UserDataManager.getInstance();
                                     userDataManager.setIsDoctor(userModel.isDoctor());
-                                    userDataManager.setCity(userModel.getCity());
-                                    userDataManager.setDepartment(userModel.getDepartment());
-                                    userDataManager.setEmail(userModel.getEmail());
 
                                     Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
                                     intent.putExtra("docDepartment", userModel.getDepartment());
@@ -146,17 +196,15 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                 } else {
+
+                                    Log.d("EmailVF", "Patient Login");
+
                                     startActivity(new Intent(getApplicationContext(),HomeScreen.class));
                                     finishAffinity();
                                 }
 
-                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                SharedPreferences.Editor editor = prefs.edit();
-                                editor.putBoolean("isDoctor", userModel.isDoctor());
-                                editor.commit();
-
                             } else {
-                                Log.d("TAG", "No such document");
+                                Log.d("EmailVF", "No such document");
                             }
                         } else {
                             Log.d("TAG", "get failed with ", task.getException());
