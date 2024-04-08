@@ -8,6 +8,8 @@ public class UserDataManager {
     private String department;
     private String city;
 
+    private String mobile;
+
     private UserDataManager() {
         // Private constructor to prevent instantiation from outside
     }
@@ -49,6 +51,14 @@ public class UserDataManager {
 
     public synchronized String getCity() {
         return city;
+    }
+
+    public synchronized void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public synchronized String getMobile() {
+        return mobile;
     }
 }
 

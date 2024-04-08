@@ -62,11 +62,16 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                                 UserModel userModel = document.toObject(UserModel.class);
 
+                                UserDataManager userDataManager = UserDataManager.getInstance();
+                                userDataManager.setIsDoctor(userModel.isDoctor());
+                                userDataManager.setDepartment(userModel.getDepartment());
+                                userDataManager.setCity(userModel.getCity());
+                                userDataManager.setMobile(userModel.getPhone());
+                                userDataManager.setEmail(userModel.getEmail());
+
                                 if(userModel.isDoctor()){
 
                                     Log.d("EmailVF", "Doctor Login");
-                                    UserDataManager userDataManager = UserDataManager.getInstance();
-                                    userDataManager.setIsDoctor(userModel.isDoctor());
 
                                     Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
                                     intent.putExtra("docDepartment", userModel.getDepartment());

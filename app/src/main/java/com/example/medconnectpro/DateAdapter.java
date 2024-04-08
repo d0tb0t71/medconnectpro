@@ -1,6 +1,7 @@
 package com.example.medconnectpro;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,14 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> 
         UserDataManager userDataManager = UserDataManager.getInstance();
          if (userDataManager.isDoctor()){
              holder.deleteIcon.setVisibility(View.VISIBLE);
+             Log.d("DATEADAP" , "DOCTOR");
+         } else {
+             Log.d("DATEADAP" , "PATIENT");
          }
+
+
+
+
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override

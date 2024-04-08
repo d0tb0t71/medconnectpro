@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -86,9 +87,29 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
                 int id = item.getItemId();
 
                 if (id == R.id.HomeMenu){
-                    Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
-                    startActivity(intent);
-                    finishAffinity();
+
+                    UserDataManager userDataManager = UserDataManager.getInstance();
+
+                    if(userDataManager.isDoctor()){
+
+                        Log.d("NAVOPER", "DOCTOR");
+
+                        Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
+                        intent.putExtra("docDepartment", userDataManager.getDepartment());
+                        intent.putExtra("docCity", userDataManager.getCity());
+                        intent.putExtra("docEmail", userDataManager.getEmail());
+
+                        startActivity(intent);
+                        finishAffinity();
+
+                    } else{
+
+                        Log.d("NAVOPER", "PATIENT");
+
+                        Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
+                        startActivity(intent);
+                        finishAffinity();
+                    }
                 }
                 else if (id == R.id.ProfileMenu){
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
