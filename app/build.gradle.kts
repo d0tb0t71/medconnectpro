@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.medconnectpro"
-        minSdk = 34
+        minSdk = 32
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

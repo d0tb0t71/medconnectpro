@@ -87,6 +87,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
         if(userDataManager.isDoctor()){
             bookAppointmentNow.setVisibility(View.GONE);
+            MenuItem historyItem = navView.getMenu().findItem(R.id.HistoryMenu);
+            historyItem.setVisible(false);
         }
 
 

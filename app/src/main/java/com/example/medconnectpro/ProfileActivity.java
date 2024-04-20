@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,12 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
 
     TextView p_name, p_email, p_city, p_dep, p_mobile;
 
+    ImageView profileImgView;
     Button updateProfileBtn;
     FirebaseFirestore db;
     FirebaseUser user;
@@ -33,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
+        profileImgView = findViewById(R.id.profileImgView);
         p_name = findViewById(R.id.p_name);
         p_email = findViewById(R.id.p_email);
         p_city = findViewById(R.id.p_city);
@@ -54,11 +58,13 @@ public class ProfileActivity extends AppCompatActivity {
                     if (document.exists()) {
                         UserModel userModel = document.toObject(UserModel.class);
 
+                        UserDataManager userDataManager = UserDataManager.getInstance();
+
                         p_name.setText(userModel.getFullname());
-                        p_city.setText(userModel.getCity());
-                        p_dep.setText(userModel.getDepartment());
-                        p_mobile.setText(userModel.getPhone());
-                        p_email.setText(userModel.getEmail());
+                        p_city.setText("Address: " + userModel.getCity());
+                        p_dep.setText("Department: " + userModel.getDepartment());
+                        p_mobile.setText("Mobile: " + userModel.getPhone());
+                        p_email.setText("Email: " + userModel.getEmail());
 
                     } else {
                         Log.d("TAG", "No such document");
