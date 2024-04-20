@@ -202,6 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("docMobile", userModel.getPhone());
 
                                     startActivity(intent);
+                                    finishAffinity();
 
                                 } else {
 

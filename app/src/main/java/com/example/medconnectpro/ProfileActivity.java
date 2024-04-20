@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        UserDataManager userDataManager = UserDataManager.getInstance();
 
         profileImgView = findViewById(R.id.profileImgView);
         p_name = findViewById(R.id.p_name);
@@ -58,13 +60,16 @@ public class ProfileActivity extends AppCompatActivity {
                     if (document.exists()) {
                         UserModel userModel = document.toObject(UserModel.class);
 
-                        UserDataManager userDataManager = UserDataManager.getInstance();
-
                         p_name.setText(userModel.getFullname());
                         p_city.setText("Address: " + userModel.getCity());
-                        p_dep.setText("Department: " + userModel.getDepartment());
                         p_mobile.setText("Mobile: " + userModel.getPhone());
                         p_email.setText("Email: " + userModel.getEmail());
+
+                        if(userDataManager.isDoctor()){
+                            p_dep.setText("Department: " + userModel.getDepartment());
+                        }else{
+                            p_dep.setVisibility(View.GONE);
+                        }
 
                     } else {
                         Log.d("TAG", "No such document");
