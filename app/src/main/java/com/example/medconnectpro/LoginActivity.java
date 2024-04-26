@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText login_email,login_pass;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    TextView goToResisterBtn;
+    TextView goToResisterBtn , forgotPassTV;
 
     ProgressBar progressView;
 
@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         login_email = findViewById(R.id.doc_login_email);
         login_pass = findViewById(R.id.doc_login_pass);
         login_now_btn = findViewById(R.id.login_now_btn);
+        forgotPassTV = findViewById(R.id.forgotPassTV);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -54,12 +55,16 @@ public class LoginActivity extends AppCompatActivity {
         goToResisterBtn = findViewById(R.id.goToResisterBtn);
         progressView = findViewById(R.id.progressView);
 
-        progressView.setVisibility(View.VISIBLE);
+        //progressView.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
+
+        forgotPassTV.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), ForgotPassActivity.class));
+        });
 
         login_now_btn.setOnClickListener(v->{
 
@@ -130,9 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                                 });
 
                             }
-                            else{
-                                startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
-                            }
+
 
                         }
 
@@ -221,9 +224,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-            }
-            else{
-                startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
             }
 
         }

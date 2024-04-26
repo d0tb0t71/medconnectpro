@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +29,8 @@ import java.util.Map;
 public class DoctorRegisterActivity extends AppCompatActivity {
 
     Button doc_reg_btn;
-    EditText email, phone, fullName, username, pass, confirmPass;
+    EditText email, phone, fullName, username;
+    TextInputEditText pass, confirmPass;
     Spinner department, city;
     FirebaseAuth mAuth;
     FirebaseFirestore db;

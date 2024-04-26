@@ -145,35 +145,48 @@
                 android:inputType="text"
                 android:paddingLeft="20dp" />
 
-
-            <EditText
-                android:id="@+id/pass_Reg"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:hint="Password"
-                android:background="@drawable/edittext_bg"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="text"
-                android:drawableEnd="@drawable/baseline_remove_red_eye_24"
-                />
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
-            <EditText
-                android:id="@+id/repeat_pass_Reg"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pass_Reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:hint="Password"
+                    android:background="@drawable/edittext_bg"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:inputType="text"
+                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:hint="Repeat Password"
-                android:background="@drawable/edittext_bg"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="text"
-                android:drawableEnd="@drawable/baseline_remove_red_eye_24"
-                />
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repeat_pass_Reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:hint="Repeat Password"
+                    android:background="@drawable/edittext_bg"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:inputType="text"
+                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button

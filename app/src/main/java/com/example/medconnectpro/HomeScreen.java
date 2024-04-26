@@ -77,6 +77,10 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
 
         });
 
+        backBtn.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

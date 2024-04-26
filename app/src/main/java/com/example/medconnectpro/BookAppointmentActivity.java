@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -61,6 +62,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseUser user;
 
+    ImageView backBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +88,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         selectTimeET = findViewById(R.id.selectTimeET);
         docNameTV = findViewById(R.id.docNameTV);
         callBtnTV = findViewById(R.id.callBtnTV);
+        backBtn = findViewById(R.id.backBtnBA);
 
         String[] bloodGroupList = getResources().getStringArray(R.array.blood_group_list);
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bloodGroupList);
@@ -144,6 +148,9 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
         });
 
+        backBtn.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
 
         createAppointmentBtn.setOnClickListener(v -> {
 

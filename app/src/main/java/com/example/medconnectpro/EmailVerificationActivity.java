@@ -114,6 +114,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
             else{
                 Log.d("EmailVF", "user not verified");
 
+                Toast.makeText(this, "Verify your email and try again.", Toast.LENGTH_SHORT).show();
+
             }
 
             Log.d("EmailVF", "Clicked");

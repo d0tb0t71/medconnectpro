@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/offWhite"
-    tools:context=".DoctorRegisterActivity">
+    tools:context=".UpdateProfileActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/topViewDRA"
@@ -29,6 +29,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/backBtnUPA"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="20dp"
@@ -41,12 +42,7 @@
                     android:gravity="end"
                     >
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="20dp"
-                        android:src="@drawable/navigation_bar"
-                        />
+
 
                 </LinearLayout>
 

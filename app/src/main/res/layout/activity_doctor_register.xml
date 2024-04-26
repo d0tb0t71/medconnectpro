@@ -156,34 +156,48 @@
                 android:paddingLeft="20dp" />
 
 
-
-            <EditText
-                android:id="@+id/doc_pass_ET"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:hint="Password"
-                android:background="@drawable/edittext_bg"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/baseline_remove_red_eye_24"
-                />
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                >
 
-            <EditText
-                android:id="@+id/doc_confirmPass_ET"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/doc_pass_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:hint="Password"
+                    android:background="@drawable/edittext_bg"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:inputType="textPassword"
+                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:hint="Repeat Password"
-                android:background="@drawable/edittext_bg"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="30dp"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/baseline_remove_red_eye_24"
-                />
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/doc_confirmPass_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:hint="Repeat Password"
+                    android:background="@drawable/edittext_bg"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:inputType="textPassword"
+                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
 

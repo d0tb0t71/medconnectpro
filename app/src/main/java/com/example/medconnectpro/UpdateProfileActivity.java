@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
+    ImageView backBtnUPA;
     EditText fullname_ET,username_ET, phone_ET;
     Spinner departmentSpinner,citySpinner;
 
@@ -47,6 +49,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         departmentSpinner = findViewById(R.id.deparmentSpinner);
         citySpinner = findViewById(R.id.citySpinner);
         updateNowBtn = findViewById(R.id.updateNowBtn);
+        backBtnUPA = findViewById(R.id.backBtnUPA);
 
         String[] departmentList = getResources().getStringArray(R.array.doctor_department_list);
         ArrayAdapter<String> depAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departmentList);
@@ -90,6 +93,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 // Do nothing
             }
+        });
+
+        backBtnUPA.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
         });
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

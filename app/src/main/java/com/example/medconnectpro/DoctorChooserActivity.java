@@ -80,6 +80,10 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
         });
 
+        backBtn.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
