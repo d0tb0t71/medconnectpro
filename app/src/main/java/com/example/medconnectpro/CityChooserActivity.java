@@ -3,6 +3,7 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,7 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
 
     String departmentName = "";
 
+    SearchView searchView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
 
         departmentName = getIntent().getStringExtra("docDepartment");
 
+        searchView = findViewById(R.id.citySearchView);
         cityRecyclerView = findViewById(R.id.cityRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -73,6 +76,20 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
 
 
         getData(departmentName);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filterList(newText);
+                return false;
+            }
+        });
 
         navBtn.setOnClickListener(v-> {
 
@@ -135,6 +152,22 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
                 return false;
             }
         });
+    }
+
+    public void filterList(String newText){
+
+
+        ArrayList<CityModel> tempList = new ArrayList<CityModel>();
+
+        for(CityModel model : list){
+            if(model.getName().toLowerCase().contains(newText.toLowerCase())){
+                tempList.add(model);
+            }
+        }
+
+        cityAdapter.filteredList(tempList);
+        cityRecyclerView.setAdapter(cityAdapter);
+
     }
 
     private void getData(String departmentName) {

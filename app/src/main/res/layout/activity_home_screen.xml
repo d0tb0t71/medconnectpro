@@ -63,17 +63,19 @@
 
                     />
 
-                <EditText
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/depSearchView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:imeOptions="actionSearch"
+                    app:iconifiedByDefault="false"
                     android:background="@drawable/edittext_bg"
-                    android:backgroundTint="@color/white"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:hint="Search"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    />
+                    app:queryBackground="@android:color/transparent"
+                    android:layout_marginHorizontal="20dp"
+                    app:queryHint="Search here..." />
 
             </LinearLayout>
 

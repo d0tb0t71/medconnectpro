@@ -3,6 +3,7 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +51,8 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     String cityName = "";
     String doctorMail = "";
     String docDate = "";
+
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
         navView.bringToFront();
 
         appointmentRecyclerView = findViewById(R.id.appointmentRecyclerView);
+        searchView = findViewById(R.id.appoSearchView);
 
         departmentName = getIntent().getStringExtra("docDepartment");
         cityName = getIntent().getStringExtra("docCity");
@@ -94,6 +98,20 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
             MenuItem historyItem = navView.getMenu().findItem(R.id.HistoryMenu);
             historyItem.setVisible(false);
         }
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filterList(newText);
+                return false;
+            }
+        });
 
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -148,6 +166,22 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
             }
         });
 
+
+    }
+
+    public void filterList(String newText){
+
+
+        ArrayList<AppointmentModel> tempList = new ArrayList<AppointmentModel>();
+
+        for(AppointmentModel model : list){
+            if(model.getName().toLowerCase().contains(newText.toLowerCase())){
+                tempList.add(model);
+            }
+        }
+
+        appointmentAdapter.filteredList(tempList);
+        appointmentRecyclerView.setAdapter(appointmentAdapter);
 
     }
 

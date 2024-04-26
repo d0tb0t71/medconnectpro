@@ -3,6 +3,7 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,9 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
     String doctorMail = "";
     String doctorName = "";
     String doctorMobile = "";
+
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,8 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
         bookAppointmentNow = findViewById(R.id.bookAppointmentBtn);
         datesRecyclerView = findViewById(R.id.datesRecyclerView);
+        searchView = findViewById(R.id.dateSearchView);
+
 
         departmentName = getIntent().getStringExtra("docDepartment");
         cityName = getIntent().getStringExtra("docCity");
@@ -91,6 +97,19 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
             historyItem.setVisible(false);
         }
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filterList(newText);
+                return false;
+            }
+        });
 
         bookAppointmentNow.setOnClickListener( v-> {
 
@@ -167,6 +186,22 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
                 return false;
             }
         });
+
+    }
+
+    public void filterList(String newText){
+
+
+        ArrayList<DateModel> tempList = new ArrayList<DateModel>();
+
+        for(DateModel model : list){
+            if(model.getDate().toLowerCase().replaceAll("_", "/").contains(newText.toLowerCase())){
+                tempList.add(model);
+            }
+        }
+
+        dateAdapter.filteredList(tempList);
+        datesRecyclerView.setAdapter(dateAdapter);
 
     }
 

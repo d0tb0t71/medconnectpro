@@ -3,6 +3,7 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,8 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
     ArrayList<DepartmentModel> list;
     FirebaseFirestore db;
 
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,7 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
         navView.bringToFront();
 
 
+        searchView = findViewById(R.id.depSearchView);
         departmentRecyclerView = findViewById(R.id.departmentRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -68,6 +72,20 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
 
         db = FirebaseFirestore.getInstance();
 
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filterList(newText);
+                return false;
+            }
+        });
 
         getData();
 
@@ -134,6 +152,22 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
                 return false;
             }
         });
+
+    }
+
+    public void filterList(String newText){
+
+
+        ArrayList<DepartmentModel> tempList = new ArrayList<DepartmentModel>();
+
+        for(DepartmentModel model : list){
+            if(model.getName().toLowerCase().contains(newText.toLowerCase())){
+                tempList.add(model);
+            }
+        }
+
+            departmentAdapter.filteredList(tempList);
+            departmentRecyclerView.setAdapter(departmentAdapter);
 
     }
 

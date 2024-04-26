@@ -3,6 +3,7 @@ package com.example.medconnectpro;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,9 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
     String departmentName = "";
     String cityName = "";
+
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,7 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
          cityName = getIntent().getStringExtra("docCity");
 
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
+        searchView = findViewById(R.id.docSearchView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 //        layoutManager.setReverseLayout(true);
@@ -72,6 +77,20 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
 
         getData(departmentName, cityName);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filterList(newText);
+                return false;
+            }
+        });
 
 
         navBtn.setOnClickListener(v-> {
@@ -137,6 +156,22 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
             }
         });
         
+    }
+
+    public void filterList(String newText){
+
+
+        ArrayList<UserModel> tempList = new ArrayList<UserModel>();
+
+        for(UserModel model : list){
+            if(model.getFullname().toLowerCase().contains(newText.toLowerCase())){
+                tempList.add(model);
+            }
+        }
+
+        doctorAdapter.filteredList(tempList);
+        doctorRecyclerView.setAdapter(doctorAdapter);
+
     }
 
     private void getData(String departmentName, String cityName) {
