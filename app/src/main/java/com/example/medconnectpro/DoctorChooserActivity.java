@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -62,6 +64,9 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
 
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
         searchView = findViewById(R.id.docSearchView);
+        EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.LTGRAY);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 //        layoutManager.setReverseLayout(true);

@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -66,6 +68,9 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
         appointmentRecyclerView = findViewById(R.id.appointmentRecyclerView);
         searchView = findViewById(R.id.appoSearchView);
+        EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.LTGRAY);
 
         departmentName = getIntent().getStringExtra("docDepartment");
         cityName = getIntent().getStringExtra("docCity");

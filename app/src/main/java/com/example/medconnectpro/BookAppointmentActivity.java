@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -115,6 +116,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = bloodGroupList[position];
                 bloodGroup = selectedItem;
+
+                if(selectedItem.equals("Blood Group")){
+                    ((TextView) view).setTextColor(Color.LTGRAY);
+                }else{
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
             }
 
             @Override
@@ -128,6 +135,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = cityList[position];
                 cityName = selectedItem;
+
+                if(selectedItem.equals("Select City")){
+                    ((TextView) view).setTextColor(Color.LTGRAY);
+                }else{
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
             }
 
             @Override
@@ -270,6 +283,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
                     selectTimeET.setText(hour + " : " + min);
 
                     selectedTime = hour + "_" + min;
+
+                    if(selectTimeET.getText().toString().equals("Select Time")){
+                        selectTimeET.setTextColor(Color.LTGRAY);
+                    }else{
+                        selectTimeET.setTextColor(Color.BLACK);
+                    }
                 } else{
 
 
@@ -327,6 +346,11 @@ public class BookAppointmentActivity extends AppCompatActivity {
                         selectDateET.setText(dDay + "/" + dMonth  + "/" + year);
                         selectedDate = (dDay + "_" + dMonth + "_" + year);
 
+                        if(selectDateET.getText().toString().equals("Select Date")){
+                            selectDateET.setTextColor(Color.LTGRAY);
+                        }else{
+                            selectDateET.setTextColor(Color.BLACK);
+                        }
                     }
                 },
                 year, month, day);

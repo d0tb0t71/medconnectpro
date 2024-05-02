@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -58,6 +60,11 @@ public class HomeScreen extends AppCompatActivity implements OnItemClick {
 
 
         searchView = findViewById(R.id.depSearchView);
+
+        EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.LTGRAY);
+
         departmentRecyclerView = findViewById(R.id.departmentRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -60,6 +62,11 @@ public class CityChooserActivity extends AppCompatActivity implements OnItemClic
         departmentName = getIntent().getStringExtra("docDepartment");
 
         searchView = findViewById(R.id.citySearchView);
+
+        EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.LTGRAY);
+
         cityRecyclerView = findViewById(R.id.cityRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
