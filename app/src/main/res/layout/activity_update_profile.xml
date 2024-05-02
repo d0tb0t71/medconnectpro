@@ -148,6 +148,7 @@
                 android:backgroundTint="@color/darkRed"
                 android:textSize="18sp"
                 android:layout_marginBottom="30dp"
+                android:textColor="@color/white"
                 />
 
 

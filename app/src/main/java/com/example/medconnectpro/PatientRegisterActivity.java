@@ -101,7 +101,7 @@ public class PatientRegisterActivity extends AppCompatActivity {
             String c_pass_st = confirmPass.getText().toString();
 
 
-            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 8 && !citytxt.equals("Select City")){
+            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 7 && !citytxt.equals("Select City")){
 
                 mAuth.createUserWithEmailAndPassword(email_st,pass_st).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

@@ -18,11 +18,7 @@
         android:icon="@drawable/baseline_history_24"
         />
 
-    <item
-        android:id="@+id/HelpMenu"
-        android:title="Help"
-        android:icon="@drawable/baseline_help_center_24"
-        />
+
 
     <item
         android:id="@+id/AboutMenu"

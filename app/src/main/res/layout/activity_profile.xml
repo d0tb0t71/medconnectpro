@@ -96,12 +96,14 @@
                    android:textSize="20dp"
                    android:fontFamily="@font/montserrat_bold"
                    android:padding="10dp"
+                   android:textColor="@color/black"
                    />
 
                <androidx.cardview.widget.CardView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    app:cardCornerRadius="15dp"
+                   android:background="@color/white"
                    >
                    <LinearLayout
                        android:layout_width="match_parent"
@@ -121,6 +123,7 @@
                            android:textSize="15dp"
                            android:fontFamily="@font/montserrat_semibold"
                            android:padding="5dp"
+                           android:textColor="#252525"
                            />
                        <TextView
                            android:id="@+id/p_mobile"
@@ -131,6 +134,7 @@
                            android:textSize="15dp"
                            android:fontFamily="@font/montserrat_semibold"
                            android:padding="5dp"
+                           android:textColor="#252525"
                            />
 
                        <TextView
@@ -142,6 +146,7 @@
                            android:textSize="15dp"
                            android:fontFamily="@font/montserrat_semibold"
                            android:padding="5dp"
+                           android:textColor="#252525"
                            />
 
                        <TextView
@@ -153,6 +158,7 @@
                            android:textSize="15dp"
                            android:fontFamily="@font/montserrat_semibold"
                            android:padding="5dp"
+                           android:textColor="#252525"
                            />
 
                    </LinearLayout>
@@ -173,6 +179,7 @@
            android:layout_marginHorizontal="20dp"
            android:textSize="20sp"
            android:backgroundTint="@color/darkRed"
+           android:textColor="@color/white"
            />
    </RelativeLayout>
 

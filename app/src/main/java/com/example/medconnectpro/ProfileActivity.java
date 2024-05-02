@@ -63,6 +63,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         DocumentReference docRef = db.collection("users").document(user.getUid());
 
+        if(!userDataManager.isDoctor()){
+            profileImgView.setImageResource(R.drawable.patient_img);
+
+        }
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
