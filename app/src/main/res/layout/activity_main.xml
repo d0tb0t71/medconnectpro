@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/white"
 
                 >
 
@@ -96,6 +97,8 @@
                         android:drawableStart="@drawable/baseline_account_circle_24"
                         android:inputType="textEmailAddress"
                         android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#838383"
                         />
 
                     <EditText
@@ -109,6 +112,8 @@
                         android:drawableStart="@drawable/baseline_lock_24"
                         android:inputType="textPassword"
                         android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#838383"
                         />
 
                     <TextView
@@ -128,6 +133,7 @@
                         android:text="Login"
                         android:backgroundTint="@color/darkRed"
                         android:textSize="18sp"
+                        android:textColor="@color/white"
                         />
 
                     <LinearLayout

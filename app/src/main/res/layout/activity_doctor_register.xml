@@ -29,6 +29,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/DRBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="20dp"
@@ -41,12 +42,7 @@
                     android:gravity="end"
                     >
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="20dp"
-                        android:src="@drawable/navigation_bar"
-                        />
+
 
                 </LinearLayout>
 
@@ -95,7 +91,9 @@
                 android:backgroundTint="@color/white"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                />
 
             <EditText
                 android:id="@+id/doc_phone_ET"
@@ -107,6 +105,7 @@
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="30dp"
                 android:inputType="phone"
+                android:textColor="@color/black"
                 />
 
             <EditText
@@ -119,6 +118,7 @@
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="30dp"
                 android:inputType="textPersonName"
+                android:textColor="@color/black"
                 />
 
             <EditText
@@ -131,6 +131,7 @@
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="30dp"
                 android:inputType="text"
+                android:textColor="@color/black"
                 />
 
             <Spinner
@@ -142,7 +143,9 @@
                 android:backgroundTint="@color/white"
                 android:hint="Blood Group"
                 android:inputType="text"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                />
 
             <Spinner
                 android:id="@+id/doc_city_ET"
@@ -153,13 +156,16 @@
                 android:backgroundTint="@color/white"
                 android:hint="Select City"
                 android:inputType="text"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#838383"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -173,7 +179,8 @@
                     android:paddingRight="20dp"
                     android:layout_marginBottom="30dp"
                     android:inputType="textPassword"
-                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    android:textColor="@color/black"
+
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -181,7 +188,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#838383"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/doc_confirmPass_ET"
@@ -194,7 +203,7 @@
                     android:paddingRight="20dp"
                     android:layout_marginBottom="30dp"
                     android:inputType="textPassword"
-                    android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                    android:textColor="@color/black"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -209,6 +218,7 @@
                 android:backgroundTint="@color/darkRed"
                 android:textSize="18sp"
                 android:layout_marginBottom="30dp"
+                android:textColor="@color/white"
                 />
 
 

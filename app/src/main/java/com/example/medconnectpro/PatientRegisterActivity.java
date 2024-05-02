@@ -4,13 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +39,8 @@ public class PatientRegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
+    ImageView PRBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,7 @@ public class PatientRegisterActivity extends AppCompatActivity {
         citySpinner = findViewById(R.id.city_Reg);
 
         reg_btn = findViewById(R.id.reg_Btn);
+        PRBack = findViewById(R.id.PRBack);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -64,12 +70,24 @@ public class PatientRegisterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = cityList[position];
                 citytxt = selectedItem;
+
+                if(selectedItem.equals("Select City")){
+                    ((TextView) view).setTextColor(Color.LTGRAY);
+                }else{
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Do nothing
             }
+        });
+
+        PRBack.setOnClickListener(v -> {
+
+            getOnBackPressedDispatcher().onBackPressed();
+
         });
 
         reg_btn.setOnClickListener(v->{
@@ -83,7 +101,7 @@ public class PatientRegisterActivity extends AppCompatActivity {
             String c_pass_st = confirmPass.getText().toString();
 
 
-            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 10 && !citytxt.equals("Select City")){
+            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 8 && !citytxt.equals("Select City")){
 
                 mAuth.createUserWithEmailAndPassword(email_st,pass_st).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

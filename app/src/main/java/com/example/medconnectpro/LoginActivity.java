@@ -126,14 +126,19 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
 
                                             } else {
+                                                Toast.makeText(getApplicationContext(), "Login Failed.", Toast.LENGTH_SHORT).show();
                                                 Log.d("EmailVF", "No such document");
                                             }
                                         } else {
-                                            Log.d("TAG", "get failed with ", task.getException());
+                                            Log.d("EmailVF", "get failed with ", task.getException());
+                                            Toast.makeText(getApplicationContext(), "Login Failed.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
 
+                            }
+                            else {
+                                startActivity(new Intent(getApplicationContext(),EmailVerificationActivity.class));
                             }
 
 
@@ -219,7 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("EmailVF", "No such document");
                             }
                         } else {
-                            Log.d("TAG", "get failed with ", task.getException());
+                            Log.d("EmailVF", "get failed with ", task.getException());
                         }
                     }
                 });

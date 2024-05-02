@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class DoctorRegisterActivity extends AppCompatActivity {
     String deptxt = "";
     String citytxt = "";
 
+    ImageView DRBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class DoctorRegisterActivity extends AppCompatActivity {
         confirmPass = findViewById(R.id.doc_confirmPass_ET);
 
         doc_reg_btn = findViewById(R.id.doc_reg_btn);
+        DRBack = findViewById(R.id.DRBack);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -72,6 +76,13 @@ public class DoctorRegisterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = depList[position];
                 deptxt = selectedItem;
+
+                if(selectedItem.equals("Select Department")){
+                    ((TextView) view).setTextColor(Color.LTGRAY);
+                }else{
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
+
             }
 
             @Override
@@ -85,12 +96,24 @@ public class DoctorRegisterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = cityList[position];
                 citytxt = selectedItem;
+
+                if(selectedItem.equals("Select City")){
+                    ((TextView) view).setTextColor(Color.LTGRAY);
+                }else{
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Do nothing
             }
+        });
+
+        DRBack.setOnClickListener(v -> {
+
+            getOnBackPressedDispatcher().onBackPressed();
+
         });
 
         doc_reg_btn.setOnClickListener(v->{
@@ -105,7 +128,7 @@ public class DoctorRegisterActivity extends AppCompatActivity {
             String c_pass_st = confirmPass.getText().toString();
 
 
-            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 10 && !deptxt.equals("Select Depertment") && !citytxt.equals("Select City")){
+            if(email_st.length()>5 && pass.length()>5 && fullname_st.length() > 3 && pass_st.equals(c_pass_st) && phone_st.length() > 8 && !deptxt.equals("Select Depertment") && !citytxt.equals("Select City")){
 
                 mAuth.createUserWithEmailAndPassword(email_st,pass_st).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

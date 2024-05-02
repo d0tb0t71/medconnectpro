@@ -48,7 +48,9 @@
                 android:layout_margin="20dp"
                 android:backgroundTint="@color/darkRed"
                 android:text="Refresh"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                />
 
             <TextView
                 android:id="@+id/resendVmail"
