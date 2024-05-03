@@ -2,12 +2,14 @@ package com.example.medconnectpro;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -294,29 +296,48 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
         }
 
-
     }
 
     @Override
     public void onClickDelete(String s) {
 
-        UserDataManager userDataManager = UserDataManager.getInstance();
 
-        db.collection("department").document(userDataManager.getDepartment()).collection("city").document(userDataManager.getCity()).collection("doctor").document(userDataManager.getEmail()).collection("dates").document(s).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
 
-                Toast.makeText(DateChooserActivity.this, "Date has been closed", Toast.LENGTH_SHORT).show();
-                recreate();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Delete entry");
+        alert.setMessage("Are you sure you want to close the date?");
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                Toast.makeText(DateChooserActivity.this, "Unknown Error", Toast.LENGTH_SHORT).show();
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+                UserDataManager userDataManager = UserDataManager.getInstance();
+
+                db.collection("department").document(userDataManager.getDepartment()).collection("city").document(userDataManager.getCity()).collection("doctor").document(userDataManager.getEmail()).collection("dates").document(s).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        Toast.makeText(DateChooserActivity.this, "Date has been closed", Toast.LENGTH_SHORT).show();
+                        recreate();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(DateChooserActivity.this, "Unknown Error", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
 
             }
         });
+        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // close dialog
+                dialog.cancel();
+            }
+        });
+        alert.show();
+
 
 
 

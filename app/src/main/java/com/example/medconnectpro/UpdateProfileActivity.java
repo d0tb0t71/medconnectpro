@@ -25,6 +25,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UpdateProfileActivity extends AppCompatActivity {
 
     ImageView backBtnUPA;
@@ -35,7 +38,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseUser user;
 
-    UserModel uModel;
+    UserModel uModel , prevUmodel;
     String cityName = "", depName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,16 +121,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        UserModel userModel = document.toObject(UserModel.class);
+                        prevUmodel = document.toObject(UserModel.class);
 
-                        uModel = userModel;
+                        uModel = prevUmodel;
 
-                        fullname_ET.setText(userModel.getFullname());
-                        username_ET.setText(userModel.getUsername());
-                        phone_ET.setText(userModel.getPhone());
+                        fullname_ET.setText(prevUmodel.getFullname());
+                        username_ET.setText(prevUmodel.getUsername());
+                        phone_ET.setText(prevUmodel.getPhone());
 
-                        departmentSpinner.setSelection(depAdapter.getPosition(userModel.getDepartment()));
-                        citySpinner.setSelection(cityAdapter.getPosition(userModel.getCity()));
+                        departmentSpinner.setSelection(depAdapter.getPosition(prevUmodel.getDepartment()));
+                        citySpinner.setSelection(cityAdapter.getPosition(prevUmodel.getCity()));
 
 
 
@@ -148,6 +151,33 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
             if(userDataManager.isDoctor() & uModel != null && fName.length() > 0 && uName.length() > 0 && mobile.length() > 0 && cityName.length() > 0 && depName.length() > 0 && !cityName.equals("Select City") && !depName.equals("Select Department")){
 
+                Map<String, Object> depMap = new HashMap();
+                depMap.put("name", depName);
+                depMap.put("count", 0);
+
+
+                db.collection("department")
+                        .document(depName)
+                        .set(depMap);
+
+                Map<String, Object> cityMap = new HashMap();
+                cityMap.put("name", cityName);
+                cityMap.put("count", 0);
+
+                db.collection("department")
+                        .document(depName)
+                        .collection("city")
+                        .document(cityName)
+                        .set(cityMap);
+
+                db.collection("department")
+                        .document(prevUmodel.getDepartment())
+                        .collection("city")
+                        .document(prevUmodel.getCity())
+                        .collection("doctor")
+                        .document(uModel.getEmail())
+                        .delete();
+
                 uModel.setFullname(fName);
                 uModel.setUsername(uName);
                 uModel.setCity(cityName);
@@ -155,6 +185,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 uModel.setDepartment(depName);
 
                 docRef.set(uModel);
+
+                db.collection("department")
+                        .document(prevUmodel.getDepartment())
+                        .collection("city")
+                        .document(prevUmodel.getCity())
+                        .collection("doctor")
+                        .document(user.getEmail())
+                        .set(uModel);
 
                 Intent intent = new Intent(getApplicationContext(),DateChooserActivity.class);
                 intent.putExtra("docDepartment", uModel.getDepartment());

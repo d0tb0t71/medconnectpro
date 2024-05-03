@@ -82,12 +82,31 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/doctorRecyclerView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
-            />
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/doctorRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <TextView
+                android:id="@+id/noDoctorTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="No doctor available!"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

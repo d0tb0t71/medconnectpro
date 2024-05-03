@@ -13,8 +13,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +34,7 @@ import java.util.Comparator;
 public class DoctorChooserActivity extends AppCompatActivity implements OnItemClick {
 
 
+    TextView noDoctorTV;
     DrawerLayout drawerLayout;
     ImageView backBtn, navBtn;
     NavigationView navView;
@@ -62,6 +65,7 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
          departmentName = getIntent().getStringExtra("docDepartment");
          cityName = getIntent().getStringExtra("docCity");
 
+        noDoctorTV = findViewById(R.id.noDoctorTV);
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
         searchView = findViewById(R.id.docSearchView);
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
@@ -212,6 +216,12 @@ public class DoctorChooserActivity extends AppCompatActivity implements OnItemCl
                         });
 
                         doctorAdapter.notifyDataSetChanged();
+
+                        if(list.isEmpty()){
+                            noDoctorTV.setVisibility(View.VISIBLE);
+                        }else {
+                            noDoctorTV.setVisibility(View.GONE);
+                        }
 
                     }
                 });

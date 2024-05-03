@@ -2,12 +2,14 @@ package com.example.medconnectpro;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -265,52 +267,71 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
     @Override
     public void onClickDeleteBooking(AppointmentModel model) {
 
-        model.setStatus("Cancelled");
-
-        db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(model.getTime())
-                .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if(task.isSuccessful()){
-                            list.remove(model);
-                            appointmentAdapter.notifyDataSetChanged();
-                            Toast.makeText(AppointmentListActivity.this, "Ticket removed", Toast.LENGTH_SHORT).show();
-                        }
 
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AppointmentListActivity.this, "Failed to remove ticket", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        db.collection("users").document(model.getBookedBy()).collection("appointments").document(model.getId()).set(model)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if(task.isSuccessful()){
-                            Log.d("DOCSIDE" , "onComplete");
-                        }else{
-                            Log.d("DOCSIDE" , "onComplete failed");
-
-                        }
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Delete entry");
+        alert.setMessage("Are you sure you want to delete?");
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
 
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                model.setStatus("Cancelled");
 
-                        Log.d("DOCSIDE" , "onFailed");
+                db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(model.getTime())
+                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                        Toast.makeText(AppointmentListActivity.this, "Failed to approve ticket", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                if(task.isSuccessful()){
+                                    list.remove(model);
+                                    appointmentAdapter.notifyDataSetChanged();
+                                    Toast.makeText(AppointmentListActivity.this, "Ticket removed", Toast.LENGTH_SHORT).show();
+                                }
 
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AppointmentListActivity.this, "Failed to remove ticket", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                db.collection("users").document(model.getBookedBy()).collection("appointments").document(model.getId()).set(model)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if(task.isSuccessful()){
+                                    Log.d("DOCSIDE" , "onComplete");
+                                }else{
+                                    Log.d("DOCSIDE" , "onComplete failed");
+
+                                }
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                Log.d("DOCSIDE" , "onFailed");
+
+                                Toast.makeText(AppointmentListActivity.this, "Failed to approve ticket", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+            }
+        });
+        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alert.show();
 
     }
 
