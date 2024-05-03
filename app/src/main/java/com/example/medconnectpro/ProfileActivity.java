@@ -68,6 +68,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
 
+        if(userDataManager.isDoctor()){
+            MenuItem historyItem = navView.getMenu().findItem(R.id.HistoryMenu);
+            historyItem.setVisible(false);
+        }
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -109,8 +114,6 @@ public class ProfileActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                Log.d("NAVOPER", "CLICKED");
 
                 int id = item.getItemId();
 

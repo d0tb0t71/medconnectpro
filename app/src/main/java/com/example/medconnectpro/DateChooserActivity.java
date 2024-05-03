@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,7 @@ import java.util.Comparator;
 public class DateChooserActivity extends AppCompatActivity implements OnItemClick {
 
 
+    TextView nobookTV;
     DrawerLayout drawerLayout;
     ImageView backBtn, navBtn;
     NavigationView navView;
@@ -68,6 +70,7 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
         navView = findViewById(R.id.navView);
         navView.bringToFront();
 
+        nobookTV = findViewById(R.id.nobookTV);
         bookAppointmentNow = findViewById(R.id.bookAppointmentBtn);
         datesRecyclerView = findViewById(R.id.datesRecyclerView);
         searchView = findViewById(R.id.dateSearchView);
@@ -128,6 +131,7 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
         });
 
         getData(departmentName, cityName,doctorMail);
+
 
         navBtn.setOnClickListener(v-> {
 
@@ -231,37 +235,45 @@ public class DateChooserActivity extends AppCompatActivity implements OnItemClic
 
                             }
 
-                            Collections.sort(list, new Comparator<DateModel>() {
-                                @Override
-                                public int compare(DateModel a, DateModel b) {
-                                    // Split the date strings
-                                    String[] dateA = a.getDate().split("_");
-                                    String[] dateB = b.getDate().split("_");
+                        }
 
-                                    // Convert date strings to integers
-                                    int dayA = Integer.parseInt(dateA[0]);
-                                    int monthA = Integer.parseInt(dateA[1]);
-                                    int yearA = Integer.parseInt(dateA[2]);
-                                    int dayB = Integer.parseInt(dateB[0]);
-                                    int monthB = Integer.parseInt(dateB[1]);
-                                    int yearB = Integer.parseInt(dateB[2]);
+                        Collections.sort(list, new Comparator<DateModel>() {
+                            @Override
+                            public int compare(DateModel a, DateModel b) {
+                                // Split the date strings
+                                String[] dateA = a.getDate().split("_");
+                                String[] dateB = b.getDate().split("_");
 
-                                    // Compare years
-                                    if (yearA != yearB) {
-                                        return yearA - yearB;
-                                    } else if (monthA != monthB) { // Compare months if years are equal
-                                        return monthA - monthB;
-                                    } else { // Compare days if both years and months are equal
-                                        return dayA - dayB;
-                                    }
+                                // Convert date strings to integers
+                                int dayA = Integer.parseInt(dateA[0]);
+                                int monthA = Integer.parseInt(dateA[1]);
+                                int yearA = Integer.parseInt(dateA[2]);
+                                int dayB = Integer.parseInt(dateB[0]);
+                                int monthB = Integer.parseInt(dateB[1]);
+                                int yearB = Integer.parseInt(dateB[2]);
+
+                                // Compare years
+                                if (yearA != yearB) {
+                                    return yearA - yearB;
+                                } else if (monthA != monthB) { // Compare months if years are equal
+                                    return monthA - monthB;
+                                } else { // Compare days if both years and months are equal
+                                    return dayA - dayB;
                                 }
-                            });
+                            }
+                        });
 
-                            dateAdapter.notifyDataSetChanged();
+                        dateAdapter.notifyDataSetChanged();
 
+                        if(list.isEmpty()){
+                            nobookTV.setVisibility(View.VISIBLE);
+                        }else {
+                            nobookTV.setVisibility(View.GONE);
                         }
 
                     }
+
+
                 });
 
     }

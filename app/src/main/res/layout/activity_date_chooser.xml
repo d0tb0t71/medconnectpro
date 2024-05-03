@@ -82,14 +82,34 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/datesRecyclerView"
+        <RelativeLayout
+            android:id="@+id/datesView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/topViewDRA"
             android:layout_above="@id/bookAppointmentBtn"
             android:padding="20dp"
-            />
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/datesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <TextView
+                android:id="@+id/nobookTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="No booking till now"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/bookAppointmentBtn"
@@ -103,6 +123,7 @@
             android:backgroundTint="@color/darkRed"
             android:textColor="@color/white"
             />
+
 
 
     </RelativeLayout>

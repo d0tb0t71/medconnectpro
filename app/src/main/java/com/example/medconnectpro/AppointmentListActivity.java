@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,7 @@ import java.util.Comparator;
 public class AppointmentListActivity extends AppCompatActivity implements OnItemClick , AppointmentOperation{
 
 
+    TextView nooBookTV;
     DrawerLayout drawerLayout;
     ImageView backBtn, navBtn;
     NavigationView navView;
@@ -66,6 +68,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
         navView = findViewById(R.id.navView);
         navView.bringToFront();
 
+        nooBookTV = findViewById(R.id.noBookTV);
         appointmentRecyclerView = findViewById(R.id.appointmentRecyclerView);
         searchView = findViewById(R.id.appoSearchView);
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
@@ -235,6 +238,12 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
                         appointmentAdapter.notifyDataSetChanged();
 
+                        if(list.isEmpty()){
+                            nooBookTV.setVisibility(View.VISIBLE);
+                        }else {
+                            nooBookTV.setVisibility(View.GONE);
+                        }
+
                     }
                 });
 
@@ -252,6 +261,8 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
     @Override
     public void onClickDeleteBooking(AppointmentModel model) {
+
+        model.setStatus("Cancelled");
 
         db.collection("department").document(departmentName).collection("city").document(cityName).collection("doctor").document(doctorMail).collection("dates").document(docDate).collection("appointments").document(model.getTime())
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
