@@ -57,6 +57,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             @Override
             public void onClick(View v) {
 
+                holder.approveBookBtn.setVisibility(View.GONE);
                 appointmentCallback.onClickApproveBooking(appointmentModel);
 
             }

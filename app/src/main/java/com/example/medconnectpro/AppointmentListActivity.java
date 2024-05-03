@@ -121,6 +121,10 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
             }
         });
 
+        backBtn.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -214,7 +218,6 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
                                 list.add(appointmentModel);
 
                             }
-
                         }
 
                         Collections.sort(list, new Comparator<AppointmentModel>() {
@@ -270,8 +273,9 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if(task.isSuccessful()){
+                            list.remove(model);
+                            appointmentAdapter.notifyDataSetChanged();
                             Toast.makeText(AppointmentListActivity.this, "Ticket removed", Toast.LENGTH_SHORT).show();
-                            recreate();
                         }
 
 
@@ -290,11 +294,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
                         if(task.isSuccessful()){
                             Log.d("DOCSIDE" , "onComplete");
-
-                            Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
-                            recreate();
                         }else{
-
                             Log.d("DOCSIDE" , "onComplete failed");
 
                         }
@@ -330,7 +330,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
                             Log.d("DOCSIDE" , "onComplete");
 
                             Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
-                            recreate();
+                            appointmentAdapter.notifyDataSetChanged();
                         }else{
 
                             Log.d("DOCSIDE" , "onComplete failed");
@@ -357,13 +357,9 @@ public class AppointmentListActivity extends AppCompatActivity implements OnItem
 
                         if(task.isSuccessful()){
                             Log.d("DOCSIDE" , "onComplete");
-
-                            Toast.makeText(AppointmentListActivity.this, "Ticket Approved", Toast.LENGTH_SHORT).show();
-                            recreate();
+                            appointmentAdapter.notifyDataSetChanged();
                         }else{
-
                             Log.d("DOCSIDE" , "onComplete failed");
-
                         }
 
 

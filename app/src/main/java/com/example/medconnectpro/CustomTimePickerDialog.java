@@ -27,7 +27,7 @@ public class CustomTimePickerDialog extends TimePickerDialog{
     @Override
     public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
         super.onTimeChanged(timePicker, hourOfDay, minute);
-        this.setTitle("Select Time between 02:00 to 06:00");
+        this.setTitle("Select Time between 02:00 to 06:00 PM");
         if (!mIgnoreEvent){
             minute = getRoundedMinute(minute);
             mIgnoreEvent=true;

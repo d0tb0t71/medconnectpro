@@ -164,24 +164,24 @@ public class HistoryActivity extends AppCompatActivity implements OnItemClick, A
 
                         }
 
-                        Collections.sort(list, new Comparator<AppointmentModel>() {
-                            @Override
-                            public int compare(AppointmentModel a, AppointmentModel b) {
-                                String[] timeA = a.getTime().split("_");
-                                String[] timeB = b.getTime().split("_");
-
-                                int hourA = Integer.parseInt(timeA[0]);
-                                int minuteA = Integer.parseInt(timeA[1]);
-                                int hourB = Integer.parseInt(timeB[0]);
-                                int minuteB = Integer.parseInt(timeB[1]);
-
-                                if (hourA != hourB) {
-                                    return hourA - hourB;
-                                } else {
-                                    return minuteA - minuteB;
-                                }
-                            }
-                        });
+//                        Collections.sort(list, new Comparator<AppointmentModel>() {
+//                            @Override
+//                            public int compare(AppointmentModel a, AppointmentModel b) {
+//                                String[] timeA = a.getTime().split("_");
+//                                String[] timeB = b.getTime().split("_");
+//
+//                                int hourA = Integer.parseInt(timeA[0]);
+//                                int minuteA = Integer.parseInt(timeA[1]);
+//                                int hourB = Integer.parseInt(timeB[0]);
+//                                int minuteB = Integer.parseInt(timeB[1]);
+//
+//                                if (hourA != hourB) {
+//                                    return hourA - hourB;
+//                                } else {
+//                                    return minuteA - minuteB;
+//                                }
+//                            }
+//                        });
 
                         appointmentAdapter.notifyDataSetChanged();
 

@@ -276,6 +276,10 @@ public class BookAppointmentActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                Log.d("TimePICK" , hourOfDay + " : " + minute);
+
+                hourOfDay = hourOfDay - 12;
+
                 if(hourOfDay >= 2 && hourOfDay <=6){
                     String hour = String.format("%02d", hourOfDay);
                     String min = String.format("%02d", minute);
@@ -293,7 +297,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
 
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(BookAppointmentActivity.this);
-                    builder1.setTitle("Please select Time between 2:00 to 6:00\"");
+                    builder1.setTitle("Select time between 2:00 to 6:00 PM");
                     builder1.setCancelable(true);
 
                     builder1.setPositiveButton(
@@ -319,7 +323,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 CustomTimePickerDialog.getRoundedMinute(Calendar.getInstance().get(Calendar.MINUTE) + CustomTimePickerDialog.TIME_PICKER_INTERVAL),
                 false
         );
-        timePickerDialog.setTitle("Select Time between 2:00 to 6:00");
+        timePickerDialog.setTitle("Select Time between 2:00 to 6:00 PM");
+        timePickerDialog.setMessage("Booking interval: 20 minute\n(Example: 02:00PM, 02:20PM, 02:40PM etc)");
         timePickerDialog.show();
 
     }
